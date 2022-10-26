@@ -12,9 +12,11 @@ function App() {
 
     fetchServerData()
   }, [])
-  return <div className="app">
-    <Template />
-  </div>
+  return (
+    <div className="app">
+      <Template />
+    </div>
+  )
 }
 
 export default App
