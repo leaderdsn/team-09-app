@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Template } from './components/template'
+import { AppProfile } from './pages/app-profile'
 
 function App() {
   useEffect(() => {
@@ -14,7 +14,7 @@ function App() {
   }, [])
   return (
     <div className="app">
-      <Template />
+      <AppProfile />
     </div>
   )
 }
