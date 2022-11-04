@@ -3,7 +3,7 @@ import './app-button-group.css';
 
 interface ButtonGroupProps {
   buttons: string[];
-  buttonClick: (event: any) => void;
+  buttonClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 export const AppButtonGroup: React.FC<ButtonGroupProps> = ({buttons, buttonClick}) => {

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { BaseEvent, EmptyValue } from '../../pages/app-profile/app-profile';
+import { EmptyValue } from '../../pages/app-profile/app-profile';
 import { AppAvatar } from '../app-avatar';
 import './app-upload-avatar.css';
 
@@ -23,7 +23,7 @@ export const AppUploadAvatar: React.FC<UploadAvatarProps> = ({
     uploadAvatar(newImageUrl);
   }, [image]);
 
-  const onImageChange = (event: BaseEvent) => {
+  const onImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
     if (files) setImage(files[0]);
   };
