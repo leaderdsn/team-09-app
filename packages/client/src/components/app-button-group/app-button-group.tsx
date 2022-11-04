@@ -8,7 +8,7 @@ interface ButtonGroupProps {
 
 export const AppButtonGroup:React.FC<ButtonGroupProps> = ({ buttons, buttonClick }) => {
 
-  const [clickedId, setClickedId] = useState(-1)
+  const [clickedId, setClickedId] = useState(0)
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, id: React.SetStateAction<number>) => {
     setClickedId(id);
