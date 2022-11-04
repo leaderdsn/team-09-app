@@ -1,50 +1,53 @@
-import { EmptyValue, ProfileProps } from '@/pages/app-profile/app-profile'
-import React, { useEffect, useState } from 'react'
-import { AppUploadAvatar } from '../app-upload-avatar'
-import { useForm, SubmitHandler } from 'react-hook-form'
-import './app-profile-change.css'
+import React, { useEffect, useState } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { EmptyValue, ProfileProps } from '@/pages/app-profile/app-profile';
+import { AppUploadAvatar } from '../app-upload-avatar';
+import './app-profile-change.css';
 
 type Inputs = {
-  nickName: string
-  email: string
-  userName: string
-  newPassword: string
-  confirmPassword: string
-}
+  nickName: string;
+  email: string;
+  userName: string;
+  newPassword: string;
+  confirmPassword: string;
+};
 
-const EMAIL_REGEXP = /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i
-export const AppProfileChange: React.FC<ProfileProps> = ({data, formDataChange}) => {
+const EMAIL_REGEXP = /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i;
+export const AppProfileChange: React.FC<ProfileProps> = ({
+  data,
+  formDataChange,
+}) => {
   const {
     register,
     getValues,
     handleSubmit,
     reset,
     formState: { errors, isSubmitSuccessful },
-  } = useForm<Inputs>()
-  const [avatar, setAvatar] = useState(data.avatar)
+  } = useForm<Inputs>();
+  const [avatar, setAvatar] = useState(data.avatar);
 
   useEffect(() => {
     if (isSubmitSuccessful) {
       reset({
         newPassword: '',
         confirmPassword: '',
-      })
+      });
     }
-  }, [isSubmitSuccessful, data, reset])
+  }, [isSubmitSuccessful, data, reset]);
 
-  const onSubmit: SubmitHandler<Inputs> = inputData => {
-    console.log('datasubmit: ', inputData)
+  const onSubmit: SubmitHandler<Inputs> = (inputData) => {
+    console.log('datasubmit: ', inputData);
     if (formDataChange)
       formDataChange({
         avatar: avatar,
         ...inputData,
         password: inputData.newPassword ? inputData.newPassword : data.password,
-      })
-  }
+      });
+  };
 
   const uploadAvatar = (url: EmptyValue<string>) => {
-    setAvatar(url)
-  }
+    setAvatar(url);
+  };
 
   return (
     <div className="app-profile-change">
@@ -53,7 +56,9 @@ export const AppProfileChange: React.FC<ProfileProps> = ({data, formDataChange})
         <label className="app-form-field">
           <strong>Прозвище</strong>
           <input
-            className={`input input-bordered w-full  ${errors.nickName ? 'input-error' : ''}`}
+            className={`input-bordered input w-full  ${
+              errors.nickName ? 'input-error' : ''
+            }`}
             type="text"
             placeholder="Введите прозвище"
             defaultValue={data.nickName}
@@ -74,11 +79,13 @@ export const AppProfileChange: React.FC<ProfileProps> = ({data, formDataChange})
         <label className="app-form-field">
           <strong>Почта</strong>
           <input
-            className={`input input-bordered w-full ${errors.email ? 'input-error' : ''}`}
+            className={`input-bordered input w-full ${
+              errors.email ? 'input-error' : ''
+            }`}
             type="text"
             placeholder="Введите электронную почту"
             defaultValue={data.email}
-            aria-invalid={errors.email ? "true" : "false"}
+            aria-invalid={errors.email ? 'true' : 'false'}
             {...register('email', {
               required: { value: true, message: 'Поле не может быть пустым' },
               pattern: { value: EMAIL_REGEXP, message: 'Некорректный email' },
@@ -89,7 +96,9 @@ export const AppProfileChange: React.FC<ProfileProps> = ({data, formDataChange})
         <label className="app-form-field">
           <strong>Имя пользователя</strong>
           <input
-            className={`input input-bordered w-full ${errors.userName ? 'input-error' : ''}`}
+            className={`input-bordered input w-full ${
+              errors.userName ? 'input-error' : ''
+            }`}
             type="text"
             placeholder="Введите имя пользователя"
             defaultValue={data.userName}
@@ -114,7 +123,9 @@ export const AppProfileChange: React.FC<ProfileProps> = ({data, formDataChange})
         <label className="app-form-field">
           <strong>Новый пароль</strong>
           <input
-            className={`input input-bordered w-full ${errors.newPassword ? 'input-error' : ''}`}
+            className={`input-bordered input w-full ${
+              errors.newPassword ? 'input-error' : ''
+            }`}
             type="password"
             placeholder="Введите новый пароль"
             {...register('newPassword', {
@@ -126,11 +137,11 @@ export const AppProfileChange: React.FC<ProfileProps> = ({data, formDataChange})
                 value: 8,
                 message: 'Длина пароля не может быть больше 8',
               },
-              validate: value => {
+              validate: (value) => {
                 return (
                   data.password !== value ||
                   'Новый пароль должен отличаться от старого'
-                )
+                );
               },
             })}
           />
@@ -139,24 +150,30 @@ export const AppProfileChange: React.FC<ProfileProps> = ({data, formDataChange})
         <label className="app-form-field">
           <strong>Повторить пароль</strong>
           <input
-            className={`input input-bordered w-full ${errors.confirmPassword ? 'input-error' : ''}`}
+            className={`input-bordered input w-full ${
+              errors.confirmPassword ? 'input-error' : ''
+            }`}
             type="password"
             placeholder="Введите новый пароль ещё раз"
             {...register('confirmPassword', {
-              validate: value => {
-                const { newPassword } = getValues()
-                return newPassword === value || 'Пароль не совпадает'
+              validate: (value) => {
+                const { newPassword } = getValues();
+                return newPassword === value || 'Пароль не совпадает';
               },
             })}
           />
         </label>
-        {<small className="text-error">{errors.confirmPassword?.message}</small>}
+        {
+          <small className="text-error">
+            {errors.confirmPassword?.message}
+          </small>
+        }
         <div className="app-form-button-panel">
-          <button className="btn btn-primary" type="submit">
+          <button className="btn-primary btn" type="submit">
             Сохранить
           </button>
         </div>
       </form>
     </div>
-  )
-}
+  );
+};
