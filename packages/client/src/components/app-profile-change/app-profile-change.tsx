@@ -1,108 +1,162 @@
-import { EmptyValue, ProfileProps } from "@/pages/app-profile/app-profile";
-import React, { useState } from "react";
-import { AppUploadAvatar } from "../app-upload-avatar";
+import { EmptyValue, ProfileProps } from '@/pages/app-profile/app-profile'
+import React, { useEffect, useState } from 'react'
+import { AppUploadAvatar } from '../app-upload-avatar'
+import { useForm, SubmitHandler } from 'react-hook-form'
 import './app-profile-change.sass'
 
-export const AppProfileChange:React.FC<ProfileProps> = ({ data, formDataChange}) => {
+type Inputs = {
+  nickName: string
+  email: string
+  userName: string
+  newPassword: string
+  confirmPassword: string
+}
 
-  const [avatar, setAvatar] = useState(data.avatar);
-  const [nickName, setNickName] = useState(data.nickName);
-  const [email, setEmail] = useState(data.email);
-  const [userName, setUserName] = useState(data.userName);
-  const [password, setPassword] = useState(data.password);
-  const [newPassword, setNewPassword] = useState(data.newPassword);
-  const [repeatPassword, setRepeatPassword] = useState(data.repeatPassword);
+const EMAIL_REGEXP = /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i
+export const AppProfileChange: React.FC<ProfileProps> = ({data, formDataChange}) => {
+  const {
+    register,
+    getValues,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitSuccessful },
+  } = useForm<Inputs>()
+  const [avatar, setAvatar] = useState(data.avatar)
 
-  const handleSubmit = (event: { preventDefault: () => void; }) => {
-    event.preventDefault();
-    if(formDataChange) formDataChange({
-      avatar: avatar,
-      nickName: nickName,
-      email: email,
-      userName: userName,
-      password: password,
-      newPassword: newPassword,
-      repeatPassword: repeatPassword,
-    });
-  };
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset({
+        newPassword: '',
+        confirmPassword: '',
+      })
+    }
+  }, [isSubmitSuccessful, data, reset])
 
-  const onClickCancel = () => {
-    console.log('cancel')
-  };
+  const onSubmit: SubmitHandler<Inputs> = inputData => {
+    console.log('datasubmit: ', inputData)
+    if (formDataChange)
+      formDataChange({
+        avatar: avatar,
+        ...inputData,
+        password: inputData.newPassword ? inputData.newPassword : data.password,
+      })
+  }
 
-  const handlerUpload = (url:EmptyValue<string>) => {
+  const uploadAvatar = (url: EmptyValue<string>) => {
     setAvatar(url)
   }
 
   return (
     <div className="app-profile-change">
-      <AppUploadAvatar avatar={avatar} uploadAvatar={handlerUpload}/>
-      <form className="app-form" method="post" onSubmit={handleSubmit}>
-        <label className="app-form-fuild">
+      <AppUploadAvatar avatar={avatar} uploadAvatar={uploadAvatar} />
+      <form className="app-form" onSubmit={handleSubmit(onSubmit)}>
+        <label className="app-form-field">
           <strong>Прозвище</strong>
-          <input 
-            className="app-form-fuild-control" 
-            type="text" 
-            placeholder="Введите прозвище" 
-            value={nickName}
-            onChange={(event) => setNickName(event.target.value)}
+          <input
+            className={`app-form-field-control ${errors.nickName ? 'is-error' : ''}`}
+            type="text"
+            placeholder="Введите прозвище"
+            defaultValue={data.nickName}
+            {...register('nickName', {
+              required: { value: true, message: 'Поле не может быть пустым' },
+              minLength: {
+                value: 3,
+                message: 'Длина прозвища не может быть меньше 3',
+              },
+              maxLength: {
+                value: 40,
+                message: 'Длина прозвища не может быть больше 40',
+              },
+            })}
           />
         </label>
-        <label className="app-form-fuild">
+        {<small className="error-msg">{errors.nickName?.message}</small>}
+        <label className="app-form-field">
           <strong>Почта</strong>
-          <input 
-            className="app-form-fuild-control" 
-            type="text" 
-            placeholder="Введите электронную почту" 
-            value={email}
-            onChange={(event) => setEmail(event.target.value)} 
+          <input
+            className={`app-form-field-control ${errors.email ? 'is-error' : ''}`}
+            type="text"
+            placeholder="Введите электронную почту"
+            defaultValue={data.email}
+            aria-invalid={errors.email ? "true" : "false"}
+            {...register('email', {
+              required: { value: true, message: 'Поле не может быть пустым' },
+              pattern: { value: EMAIL_REGEXP, message: 'Некорректный email' },
+            })}
           />
         </label>
-        <label className="app-form-fuild">
+        {<small className="error-msg">{errors.email?.message}</small>}
+        <label className="app-form-field">
           <strong>Имя пользователя</strong>
-          <input 
-            className="app-form-fuild-control" 
-            type="text" 
-            placeholder="Введите имя пользователя" 
-            value={userName}
-            onChange={(event) => setUserName(event.target.value)} 
+          <input
+            className={`app-form-field-control ${errors.userName ? 'is-error' : ''}`}
+            type="text"
+            placeholder="Введите имя пользователя"
+            defaultValue={data.userName}
+            {...register('userName', {
+              required: { value: true, message: 'Поле не может быть пустым' },
+              pattern: {
+                value: /^[а-яА-ЯёЁa-zA-Z]+$/,
+                message: 'Поле должно содержать только буквы',
+              },
+              minLength: {
+                value: 3,
+                message: 'Длина прозвища не может быть меньше 3',
+              },
+              maxLength: {
+                value: 100,
+                message: 'Длина прозвища не может быть больше 100',
+              },
+            })}
           />
         </label>
-        <label className="app-form-fuild">
-          <strong>Пароль</strong>
-          <input 
-            className="app-form-fuild-control" 
-            type="password"
-            placeholder="Введите пароль" 
-            value={password}
-            onChange={(event) => setPassword(event.target.value)} 
-          />
-        </label>
-        <label className="app-form-fuild">
+        {<small className="error-msg">{errors.userName?.message}</small>}
+        <label className="app-form-field">
           <strong>Новый пароль</strong>
-          <input 
-            className="app-form-fuild-control" 
-            type="password" 
-            placeholder="Введите новый пароль" 
-            value={newPassword}
-            onChange={(event) => setNewPassword(event.target.value)} 
+          <input
+            className={`app-form-field-control ${errors.newPassword ? 'is-error' : ''}`}
+            type="password"
+            placeholder="Введите новый пароль"
+            {...register('newPassword', {
+              minLength: {
+                value: 6,
+                message: 'Длина пароля не может быть меньше 6',
+              },
+              maxLength: {
+                value: 8,
+                message: 'Длина пароля не может быть больше 8',
+              },
+              validate: value => {
+                return (
+                  data.password !== value ||
+                  'Новый пароль должен отличаться от старого'
+                )
+              },
+            })}
           />
         </label>
-        <label className="app-form-fuild">
+        {<small className="error-msg">{errors.newPassword?.message}</small>}
+        <label className="app-form-field">
           <strong>Повторить пароль</strong>
-          <input 
-            className="app-form-fuild-control" 
-            type="password" 
-            placeholder="Введите новый пароль ещё раз" 
-            value={repeatPassword}
-            onChange={(event) => setRepeatPassword(event.target.value)}
+          <input
+            className={`app-form-field-control ${errors.confirmPassword ? 'is-error' : ''}`}
+            type="password"
+            placeholder="Введите новый пароль ещё раз"
+            {...register('confirmPassword', {
+              validate: value => {
+                const { newPassword } = getValues()
+                return newPassword === value || 'Пароль не совпадает'
+              },
+            })}
           />
         </label>
+        {<small className="error-msg">{errors.confirmPassword?.message}</small>}
         <div className="app-form-button-panel">
-          <button className="btn btn-primary" type="submit">Сохранить</button>
-          <button className="btn" onClick={onClickCancel}>Отмена</button>
+          <button className="btn btn-primary" type="submit">
+            Сохранить
+          </button>
         </div>
       </form>
-    </div> 
+    </div>
   )
 }
