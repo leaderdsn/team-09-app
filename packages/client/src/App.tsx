@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 import { AppProfile } from './pages/app-profile';
 import { themeChange } from 'theme-change';
 import DarkLightMode from './components/UI/DarkLightMode';
@@ -19,11 +19,10 @@ function App() {
 
   return (
     <div className="app">
+      Вот тут будет жить ваше приложение :)
       <div className="navbar bg-base-100">
-        <div className="navbar-start">
-        </div>
-        <div className="navbar-center hidden lg:flex">
-        </div>
+        <div className="navbar-start"></div>
+        <div className="navbar-center hidden lg:flex"></div>
         <div className="navbar-end">
           <div className="mr-2">
             <ThemeChanger />
