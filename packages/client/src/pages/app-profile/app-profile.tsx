@@ -1,7 +1,7 @@
 import { AppButtonGroup } from '../../components/app-button-group';
 import { AppProfileChange } from "../../components/app-profile-change";
 import { AppProfileInfo } from "../../components/app-profile-info";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import './app-profile.sass'
 
 export interface BaseEvent {
@@ -27,8 +27,6 @@ interface ProfileData {
   email: EmptyValue<string>,
   userName: EmptyValue<string>,
   password: EmptyValue<string>,
-  newPassword: EmptyValue<string>,
-  repeatPassword: EmptyValue<string>,
   
 }
 
@@ -41,8 +39,6 @@ export const AppProfile = () => {
     email: 'test@test.test',
     userName: 'Aleksandr',
     password: 'qwe123',
-    newPassword: 'qwe123',
-    repeatPassword: 'qwe123',
   }
 
   const [data, setData] = useState<ProfileData>(dataObj)
@@ -55,7 +51,6 @@ export const AppProfile = () => {
 
   const changeFormValue = (formData: ProfileData) => {
     setData(formData)
-    console.log(formData)
   };
 
   return (
