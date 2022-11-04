@@ -18,12 +18,12 @@ export const AppUploadAvatar: React.FC<UploadAvatarProps> = ({avatar, uploadAvat
     if(!image) return
     const newImageUrl: string = URL.createObjectURL(image);
     setImageURL(newImageUrl);
+    uploadAvatar(newImageUrl);
   }, [image])
 
   const onImageChange = (event: BaseEvent) => {
-    const { files } = event.target
+    const { files } = event.target;
     if (files) setImage( files[0] );
-    uploadAvatar(imageURL)
   }
   
   const handleClickAvatar = () => {
