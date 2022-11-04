@@ -14,8 +14,13 @@ button
     height: 40px
     &-primary
       background-color: var(--primary-color)
-  &:hover
+  &:hover:not([disabled])
     filter: brightness(90%)
+  &[disabled]
+    border: 1px solid var(--light-grey)
+    background-color: var(--light-grey)
+    color: var(--background-color)
+    cursor: not-allowed
 
 @include x-small-layout
   .btn
