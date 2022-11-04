@@ -4,15 +4,6 @@ import { AppProfileChange } from '../../components/app-profile-change';
 import { AppProfileInfo } from '../../components/app-profile-info';
 import './app-profile.css';
 
-export interface BaseEvent {
-  target: Target;
-}
-
-interface Target {
-  name?: string;
-  files?: FileList | null;
-}
-
 export type Nullable<T> = T | null;
 export type EmptyValue<T> = T | undefined;
 
@@ -42,8 +33,8 @@ export const AppProfile = () => {
 
   const [data, setData] = useState<ProfileData>(dataObj);
 
-  const profileSwitching = (event: BaseEvent) => {
-    const { name } = event.target;
+  const profileSwitching = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const { name } = event.target as HTMLButtonElement;
 
     name === 'Профиль' ? setIsProfileChange(false) : setIsProfileChange(true);
   };
