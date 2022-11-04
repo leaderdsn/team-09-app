@@ -1,15 +1,21 @@
-import React from "react";
+import React from 'react';
+import { EmptyValue } from '@/pages/app-profile/app-profile';
 import noImage from '../../assets/icons/not-allow-photo.svg';
-import './app-avatar.css'
+import './app-avatar.css';
 
-export const AppAvatar:React.FC<{src?:string, alt?: string }> = ({ src, alt }) => {
+interface AvatarProps {
+  src?: EmptyValue<string>;
+  alt?: EmptyValue<string>;
+}
 
+export const AppAvatar: React.FC<AvatarProps> = ({ src, alt }) => {
   return (
     <div className="app-avatar">
-      <img className={src ? "app-image" : "app-no-image" }
+      <img
+        className={src ? 'app-image' : 'app-no-image'}
         src={src ? src : noImage}
         alt={alt}
       />
     </div>
-  )
-}
+  );
+};
