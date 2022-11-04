@@ -2,7 +2,7 @@ import { AppButtonGroup } from '../../components/app-button-group';
 import { AppProfileChange } from "../../components/app-profile-change";
 import { AppProfileInfo } from "../../components/app-profile-info";
 import { useState } from "react";
-import './app-profile.sass'
+import './app-profile.css'
 
 export interface BaseEvent {
   target: Target

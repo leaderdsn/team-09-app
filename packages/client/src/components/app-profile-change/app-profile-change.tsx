@@ -2,7 +2,7 @@ import { EmptyValue, ProfileProps } from '@/pages/app-profile/app-profile'
 import React, { useEffect, useState } from 'react'
 import { AppUploadAvatar } from '../app-upload-avatar'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import './app-profile-change.sass'
+import './app-profile-change.css'
 
 type Inputs = {
   nickName: string
@@ -53,7 +53,7 @@ export const AppProfileChange: React.FC<ProfileProps> = ({data, formDataChange})
         <label className="app-form-field">
           <strong>Прозвище</strong>
           <input
-            className={`app-form-field-control ${errors.nickName ? 'is-error' : ''}`}
+            className={`input input-bordered w-full  ${errors.nickName ? 'input-error' : ''}`}
             type="text"
             placeholder="Введите прозвище"
             defaultValue={data.nickName}
@@ -70,11 +70,11 @@ export const AppProfileChange: React.FC<ProfileProps> = ({data, formDataChange})
             })}
           />
         </label>
-        {<small className="error-msg">{errors.nickName?.message}</small>}
+        {<small className="text-error">{errors.nickName?.message}</small>}
         <label className="app-form-field">
           <strong>Почта</strong>
           <input
-            className={`app-form-field-control ${errors.email ? 'is-error' : ''}`}
+            className={`input input-bordered w-full ${errors.email ? 'input-error' : ''}`}
             type="text"
             placeholder="Введите электронную почту"
             defaultValue={data.email}
@@ -85,11 +85,11 @@ export const AppProfileChange: React.FC<ProfileProps> = ({data, formDataChange})
             })}
           />
         </label>
-        {<small className="error-msg">{errors.email?.message}</small>}
+        {<small className="text-error">{errors.email?.message}</small>}
         <label className="app-form-field">
           <strong>Имя пользователя</strong>
           <input
-            className={`app-form-field-control ${errors.userName ? 'is-error' : ''}`}
+            className={`input input-bordered w-full ${errors.userName ? 'input-error' : ''}`}
             type="text"
             placeholder="Введите имя пользователя"
             defaultValue={data.userName}
@@ -110,11 +110,11 @@ export const AppProfileChange: React.FC<ProfileProps> = ({data, formDataChange})
             })}
           />
         </label>
-        {<small className="error-msg">{errors.userName?.message}</small>}
+        {<small className="text-error">{errors.userName?.message}</small>}
         <label className="app-form-field">
           <strong>Новый пароль</strong>
           <input
-            className={`app-form-field-control ${errors.newPassword ? 'is-error' : ''}`}
+            className={`input input-bordered w-full ${errors.newPassword ? 'input-error' : ''}`}
             type="password"
             placeholder="Введите новый пароль"
             {...register('newPassword', {
@@ -135,11 +135,11 @@ export const AppProfileChange: React.FC<ProfileProps> = ({data, formDataChange})
             })}
           />
         </label>
-        {<small className="error-msg">{errors.newPassword?.message}</small>}
+        {<small className="text-error">{errors.newPassword?.message}</small>}
         <label className="app-form-field">
           <strong>Повторить пароль</strong>
           <input
-            className={`app-form-field-control ${errors.confirmPassword ? 'is-error' : ''}`}
+            className={`input input-bordered w-full ${errors.confirmPassword ? 'input-error' : ''}`}
             type="password"
             placeholder="Введите новый пароль ещё раз"
             {...register('confirmPassword', {
@@ -150,7 +150,7 @@ export const AppProfileChange: React.FC<ProfileProps> = ({data, formDataChange})
             })}
           />
         </label>
-        {<small className="error-msg">{errors.confirmPassword?.message}</small>}
+        {<small className="text-error">{errors.confirmPassword?.message}</small>}
         <div className="app-form-button-panel">
           <button className="btn btn-primary" type="submit">
             Сохранить

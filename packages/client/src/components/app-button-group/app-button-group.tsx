@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './app-button-group.sass'
+import './app-button-group.css'
 
 interface ButtonGroupProps {
   buttons: string[]
@@ -16,13 +16,13 @@ export const AppButtonGroup:React.FC<ButtonGroupProps> = ({ buttons, buttonClick
   };
 
   return (
-    <div className="app-button-group">
+    <div className="btn-group">
       {buttons.map((buttonLabel: string, i) => (
         <button 
           key={i} 
           name={buttonLabel} 
           onClick={(event) => handleClick(event, i)}
-          className={i === clickedId ? "app-button-group-item active" : "app-button-group-item"}
+          className={i === clickedId ? "btn btn-primary" : "btn"}
         >
           {buttonLabel}
         </button>

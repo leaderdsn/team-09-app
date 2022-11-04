@@ -1,6 +1,6 @@
 import React from "react";
 import noImage from '../../assets/icons/not-allow-photo.svg';
-import './app-avatar.sass'
+import './app-avatar.css'
 
 export const AppAvatar:React.FC<{src?:string, alt?: string }> = ({ src, alt }) => {
 

@@ -1,0 +1,9 @@
+@media (max-width: 575px) {
+  .btn-group {
+    width: 100%
+  }
+
+  .btn-group .btn {
+    width: 50%
+  }
+}

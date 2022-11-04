@@ -1,7 +1,7 @@
 import { ProfileProps } from "@/pages/app-profile/app-profile";
 import React, { useState } from "react";
 import { AppAvatar } from "../app-avatar";
-import './app-profile-info.sass'
+import './app-profile-info.css'
 
 export const AppProfileInfo:React.FC<ProfileProps> = ({ data }) => {
 

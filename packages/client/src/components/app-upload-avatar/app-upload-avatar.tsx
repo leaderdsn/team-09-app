@@ -1,7 +1,7 @@
 import { BaseEvent, EmptyValue } from '../../pages/app-profile/app-profile';
 import { useState, useEffect, useRef } from 'react';
 import { AppAvatar } from '../app-avatar';
-import './app-upload-avatar.sass';
+import './app-upload-avatar.css';
 
 
 interface UploadAvatarProps {
