@@ -1,20 +1,20 @@
-import { useEffect } from 'react';
-import { Template } from './components/template';
-import { themeChange } from 'theme-change';
-import DarkLightMode from './components/UI/DarkLightMode';
-import ThemeChanger from './components/UI/ThemeChanger';
+import { useEffect } from "react";
+import { themeChange } from "theme-change";
+import DarkLightMode from "./components/UI/DarkLightMode";
+import ThemeChanger from "./components/UI/ThemeChanger";
+import { Forum } from "./components/Forum/view/Forum";
 
 function App() {
   useEffect(() => {
     themeChange(false);
-    const fetchServerData = async () => {
-      const url = `http://localhost:${__SERVER_PORT__}`;
-      const response = await fetch(url);
-      const data = await response.json();
-      console.log(data);
-    };
-
-    fetchServerData();
+    // const fetchServerData = async () => {
+    //   const url = `http://localhost:${__SERVER_PORT__}`;
+    //   const response = await fetch(url);
+    //   const data = await response.json();
+    //   console.log(data);
+    // };
+    //
+    // fetchServerData();
   }, []);
 
   return (
@@ -72,7 +72,7 @@ function App() {
               </li>
             </ul>
           </div>
-          <a className="btn-ghost btn text-xl normal-case">daisyUI</a>
+          <a className="btn-ghost btn text-xl normal-case">Team-09</a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal p-0">
@@ -114,24 +114,7 @@ function App() {
           <DarkLightMode />
         </div>
       </div>
-      {/* The button to open modal */}
-      <label htmlFor="my-modal-4" className="btn">
-        open modal
-      </label>
-      {/* Put this part before </body> tag */}
-      <input type="checkbox" id="my-modal-4" className="modal-toggle" />
-      <label htmlFor="my-modal-4" className="modal cursor-pointer">
-        <label className="modal-box relative" htmlFor="">
-          <h3 className="text-lg font-bold">
-            Congratulations random Internet user!
-          </h3>
-          <p className="py-4">
-            You've been selected for a chance to get one year of subscription to
-            use Wikipedia for free!
-          </p>
-        </label>
-      </label>
-      <Template />
+      <Forum />
       {/*Ниже строка, чтобы "проходили" тесты*/}
       Вот тут будет жить ваше приложение :)
     </div>
