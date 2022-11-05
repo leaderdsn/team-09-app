@@ -1,35 +1,45 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+
+type LeaderInfo = {
+  data: {
+    id: number;
+    name: string;
+    avatar: string;
+    result: number;
+    aux: number;
+  }
+};
 
 export const Leaderboard = () => {
-  const initialData = [
-    {
-      id: 100,
-      name: 'Paronil',
-      avatar: 'https://cspromogame.ru//storage/upload_images/avatars/900.jpg',
-      result: 100000
-    },
-    { id: 101, name: 'Ffila', avatar: 'https://cspromogame.ru//storage/upload_images/avatars/833.jpg', result: 90000 },
-    { id: 102, name: 'Ran', avatar: 'https://cspromogame.ru//storage/upload_images/avatars/879.jpg', result: 80000 },
-    { id: 103, name: 'Vala', avatar: 'https://cspromogame.ru//storage/upload_images/avatars/913.jpg', result: 70000 },
-    { id: 104, name: 'Taran', avatar: 'https://cspromogame.ru//storage/upload_images/avatars/3358.jpg', result: 60000 },
-    { id: 105, name: 'Jola', avatar: 'https://cspromogame.ru//storage/upload_images/avatars/826.jpeg', result: 50000 },
-    { id: 106, name: 'Ian', avatar: 'https://cspromogame.ru//storage/upload_images/avatars/849.jpg', result: 40000 },
-    {
-      id: 107,
-      name: 'Bringer',
-      avatar: 'https://cspromogame.ru//storage/upload_images/avatars/3820.jpg',
-      result: 30000
-    },
-    { id: 108, name: 'Lure', avatar: 'https://cspromogame.ru//storage/upload_images/avatars/817.jpeg', result: 20000 },
-    {
-      id: 109,
-      name: 'Veniamin',
-      avatar: 'https://cspromogame.ru//storage/upload_images/avatars/5018.jpg',
-      result: 10000
-    }
-  ]
+  const [data, setData] = useState<LeaderInfo[]>([])
+  const [ratingBy, setRatingBy] = useState('result')
 
-  const [data] = useState(initialData)
+  useEffect(() => {
+    const fetchServerData = async () => {
+      const url = 'https://ya-praktikum.tech/api/v2/leaderboard/19-T9'
+      const body = {
+        ratingFieldName: ratingBy,
+        cursor: 0,
+        limit: 10
+      }
+
+      const response = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(body),
+        credentials: 'include',
+        headers: {
+          'accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      })
+
+      const data = await response.json()
+
+      setData(data)
+    }
+
+    fetchServerData()
+  }, [ratingBy])
 
   const handleButtonClick = () => {
     console.log('Покидаем лидерборд')
@@ -43,24 +53,26 @@ export const Leaderboard = () => {
         <tr>
           <th>Место</th>
           <th>Ник</th>
-          <th>Результат</th>
+          <th className='cursor-pointer' onClick={() => setRatingBy('result')}>Результат</th>
+          <th className='cursor-pointer' onClick={() => setRatingBy('aux')}>Aux</th>
         </tr>
         </thead>
         <tbody>
         {data.map((leader, index) =>
-          <tr key={leader.id}>
+          <tr key={leader.data.id}>
             <td>{index + 1}</td>
             <td>
               <div className='flex items-center space-x-3'>
                 <div className='avatar'>
                   <div className='mask mask-squircle w-12 h-12'>
-                    <img src={leader.avatar} alt='Avatar' />
+                    <img src={leader.data.avatar} alt='Avatar' />
                   </div>
                 </div>
-                <div className='font-bold'>{leader.name}</div>
+                <div className='font-bold'>{leader.data.name}</div>
               </div>
             </td>
-            <td>{leader.result}</td>
+            <td>{leader.data.result}</td>
+            <td>{leader.data.aux}</td>
           </tr>
         )}
         </tbody>
