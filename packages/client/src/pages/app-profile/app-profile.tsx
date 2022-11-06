@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { AppButtonGroup } from '../../components/app-button-group';
-import { AppProfileChange } from '../../components/app-profile-change';
-import { AppProfileInfo } from '../../components/app-profile-info';
+import { AppButtonGroup } from '@/components/app-button-group';
+import { AppProfileChange } from '@/components/app-profile-change';
+import { AppProfileInfo } from '@/components/app-profile-info';
 import './app-profile.css';
 
 export type Nullable<T> = T | null;

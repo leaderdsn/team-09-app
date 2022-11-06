@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { EmptyValue } from '../../pages/app-profile/app-profile';
-import { AppAvatar } from '../app-avatar';
+import { EmptyValue } from '@/pages/app-profile/app-profile';
+import { AppAvatar } from '@/components/app-avatar';
 import './app-upload-avatar.css';
 
 interface UploadAvatarProps {

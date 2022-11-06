@@ -1,6 +1,6 @@
 import React from 'react';
 import { ProfileProps } from '@/pages/app-profile/app-profile';
-import { AppAvatar } from '../app-avatar';
+import { AppAvatar } from '@/components/app-avatar';
 import './app-profile-info.css';
 
 export const AppProfileInfo: React.FC<ProfileProps> = ({ data }) => {

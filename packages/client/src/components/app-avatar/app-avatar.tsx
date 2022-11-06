@@ -1,6 +1,6 @@
 import React from 'react';
 import { EmptyValue } from '@/pages/app-profile/app-profile';
-import noImage from '../../assets/icons/not-allow-photo.svg';
+import noImage from '@/assets/icons/not-allow-photo.svg';
 import './app-avatar.css';
 
 interface AvatarProps {
