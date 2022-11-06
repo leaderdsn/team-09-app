@@ -1,11 +1,7 @@
 import { TopicsAnswer } from '@/components/Forum/interfaces/interfaces';
-import {
-  BsReply,
-  FiEdit,
-  MdDeleteOutline,
-  MdKeyboardArrowDown,
-  MdKeyboardArrowUp,
-} from 'react-icons/all';
+import { MdDeleteOutline, MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
+import { FiEdit } from 'react-icons/fi';
+import { BsReply } from 'react-icons/bs';
 import { useMemo } from 'react';
 import { formatDistance, fromUnixTime } from 'date-fns';
 import ru from 'date-fns/locale/ru';

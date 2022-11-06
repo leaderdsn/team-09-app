@@ -1,5 +1,5 @@
 import { Question } from '@/components/Forum/interfaces/interfaces';
-import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/all';
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import { useMemo } from 'react';
 import { formatDistance, fromUnixTime } from 'date-fns';
 import ru from 'date-fns/locale/ru';

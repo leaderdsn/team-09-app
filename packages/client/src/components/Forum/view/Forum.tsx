@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Questions } from '@/components/Forum/components/Questions/Questions';
 import Services from '@/components/Forum/services/services';
-import { Answers } from "@/components/Forum/components/Answers/Answers";
-import { BiArrowBack } from "react-icons/all";
+import { Answers } from '@/components/Forum/components/Answers/Answers';
+import { BiArrowBack } from 'react-icons/bi';
 
 export const Forum = () => {
   const [listTopics, setListTopics] = useState([]);

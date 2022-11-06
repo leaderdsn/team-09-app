@@ -1,6 +1,7 @@
 import { QuestionsItem } from '@/components/Forum/components/Questions/QuestionsItem';
 import { Question } from '@/components/Forum/interfaces/interfaces';
-import { AiOutlineEye, RiQuestionAnswerLine } from 'react-icons/all';
+import { AiOutlineEye } from 'react-icons/ai';
+import { RiQuestionAnswerLine } from 'react-icons/ri';
 import React, { useState } from 'react';
 import Services from '@/components/Forum/services/services';
 
