@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import * as constants from '@/path/to/fileWithConstants'
+import { AppUploadAvatar } from '@/components/app-upload-avatar';
 import { EmptyValue, ProfileProps } from '@/pages/app-profile/app-profile';
-import { AppUploadAvatar } from '../app-upload-avatar';
 import './app-profile-change.css';
 
 type Inputs = {
@@ -12,7 +13,6 @@ type Inputs = {
   confirmPassword: string;
 };
 
-const EMAIL_REGEXP = /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i;
 export const AppProfileChange: React.FC<ProfileProps> = ({
   data,
   formDataChange,
@@ -63,14 +63,14 @@ export const AppProfileChange: React.FC<ProfileProps> = ({
             placeholder="Введите прозвище"
             defaultValue={data.nickName}
             {...register('nickName', {
-              required: { value: true, message: 'Поле не может быть пустым' },
+              required: { value: true, message: constants.EMPTY_MESSAGE },
               minLength: {
-                value: 3,
-                message: 'Длина прозвища не может быть меньше 3',
+                value: constants.DEFAULT_MIN_LENGTH_VALUE,
+                message: constants.DEFAULT_MIN_LENGTH_MESSAGE  + ' ' + constants.DEFAULT_MIN_LENGTH_VALUE,
               },
               maxLength: {
-                value: 40,
-                message: 'Длина прозвища не может быть больше 40',
+                value: constants.NICK_NAME_VALUE_MAX_LENGTH,
+                message: constants.DEFAULT_MAX_LENGTH_MESSAGE  + ' ' + constants.NICK_NAME_VALUE_MAX_LENGTH,
               },
             })}
           />
@@ -87,8 +87,8 @@ export const AppProfileChange: React.FC<ProfileProps> = ({
             defaultValue={data.email}
             aria-invalid={errors.email ? 'true' : 'false'}
             {...register('email', {
-              required: { value: true, message: 'Поле не может быть пустым' },
-              pattern: { value: EMAIL_REGEXP, message: 'Некорректный email' },
+              required: { value: true, message: constants.EMPTY_MESSAGE },
+              pattern: { value: constants.EMAIL_REGEXP, message: constants.EMAIL_MESSAGE },
             })}
           />
         </label>
@@ -103,18 +103,18 @@ export const AppProfileChange: React.FC<ProfileProps> = ({
             placeholder="Введите имя пользователя"
             defaultValue={data.userName}
             {...register('userName', {
-              required: { value: true, message: 'Поле не может быть пустым' },
+              required: { value: true, message: constants.EMPTY_MESSAGE },
               pattern: {
-                value: /^[а-яА-ЯёЁa-zA-Z]+$/,
-                message: 'Поле должно содержать только буквы',
+                value: constants.USER_NAME_REGEXP,
+                message: constants.USER_NAME_MESSAGE,
               },
               minLength: {
-                value: 3,
-                message: 'Длина прозвища не может быть меньше 3',
+                value: constants.DEFAULT_MIN_LENGTH_VALUE,
+                message: constants.DEFAULT_MIN_LENGTH_MESSAGE  + ' ' + constants.DEFAULT_MIN_LENGTH_VALUE,
               },
               maxLength: {
-                value: 100,
-                message: 'Длина прозвища не может быть больше 100',
+                value: constants.USER_NAME_VALUE_MAX_LENGTH,
+                message: constants.DEFAULT_MAX_LENGTH_MESSAGE  + ' ' + constants.USER_NAME_VALUE_MAX_LENGTH,
               },
             })}
           />
@@ -130,17 +130,16 @@ export const AppProfileChange: React.FC<ProfileProps> = ({
             placeholder="Введите новый пароль"
             {...register('newPassword', {
               minLength: {
-                value: 6,
-                message: 'Длина пароля не может быть меньше 6',
+                value: constants.PASSWORD_MIN_LENGTH_VALUE,
+                message: constants.DEFAULT_MIN_LENGTH_MESSAGE + constants.PASSWORD_MIN_LENGTH_VALUE,
               },
               maxLength: {
-                value: 8,
-                message: 'Длина пароля не может быть больше 8',
+                value: constants.PASSWORD_MAX_LENGTH_VALUE,
+                message: constants.DEFAULT_MAX_LENGTH_MESSAGE  + constants.PASSWORD_MAX_LENGTH_VALUE,
               },
               validate: (value) => {
                 return (
-                  data.password !== value ||
-                  'Новый пароль должен отличаться от старого'
+                  data.password !== value || constants.PASSWORD_EQUALITY_MESSAGE
                 );
               },
             })}
@@ -158,7 +157,9 @@ export const AppProfileChange: React.FC<ProfileProps> = ({
             {...register('confirmPassword', {
               validate: (value) => {
                 const { newPassword } = getValues();
-                return newPassword === value || 'Пароль не совпадает';
+                return ( 
+                  newPassword === value || constants.PASSWORD_NOT_EQUALITY_MESSAGE 
+                );
               },
             })}
           />
