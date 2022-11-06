@@ -30,7 +30,7 @@ export const TopHeader = () => {
         <div className="mr-2">
           <DarkLightMode />
         </div>
-        <a className="btn">Начать игру</a>
+        <Link to={'/game'} className="btn">Играть</Link>
       </div>
     </div>
   )
