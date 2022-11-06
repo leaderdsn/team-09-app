@@ -36,7 +36,7 @@ export const AppProfile = () => {
   const profileSwitching = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const { name } = event.target as HTMLButtonElement;
 
-    name === 'Профиль' ? setIsProfileChange(false) : setIsProfileChange(true);
+    setIsProfileChange(name !== 'Профиль')
   };
 
   const changeFormValue = (formData: ProfileData) => {
