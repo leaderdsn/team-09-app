@@ -7,7 +7,7 @@ export default {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
-  testMatch: ['<rootDir>/src/**/?(*.)test.{ts,tsx}'],
+  testMatch: ['**/src/**/?(*.)test.{ts,tsx}'],
   globals: {
     __SERVER_PORT__: process.env.SERVER_PORT,
   },
