@@ -1,3 +1,41 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.container {
+  width: 100%;
+  padding: 0 15px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1520px;
+  }
+}
+
+@media (max-width: 1199px) {
+  .container {
+    max-width: 900px;
+  }
+}
+
+@media (max-width: 991px) {
+  .container {
+    max-width: 700px;
+  } 
+}
+    
+@media (max-width: 667px)  {
+  .container {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 575px)  {
+  .btn {
+    width: 100%;
+  }
+}
+  

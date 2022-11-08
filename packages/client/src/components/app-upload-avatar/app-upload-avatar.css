@@ -1,0 +1,28 @@
+.app-upload-avatar {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+    
+.app-upload-avatar .app-avatar::before {
+  display: grid;
+  content: 'Изменить аватар';
+  font-size: 12px;
+  white-space: nowrap;
+  width: 114px;
+  height: 114px;
+  border-radius: 50%;
+  text-align: center;
+  color: hsl(var(--pc));
+  line-height: 114px;
+  position: absolute;
+  background: hsl(var(--pf));
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.app-upload-avatar .app-avatar:hover::before {
+  opacity: 0.7;
+  cursor: pointer;
+}
