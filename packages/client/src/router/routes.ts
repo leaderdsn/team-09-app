@@ -1,6 +1,7 @@
 import React from 'react';
 import Home from '../pages/Home'
 import Game from '../pages/Game'
+import { Forum } from '@/components/Forum/view/Forum'
 
 export interface RoutesList {
   path: string,
@@ -18,5 +19,10 @@ export const routes: RoutesList[] = [
     path: "/game",
     name: "Начать игру",
     Component: Game
+  },
+  {
+    path: "/forum",
+    name: "Форум",
+    Component: Forum
   }
 ];
