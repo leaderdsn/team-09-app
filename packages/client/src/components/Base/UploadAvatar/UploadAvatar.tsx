@@ -1,14 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
-import { EmptyValue } from '@/pages/app-profile/app-profile';
-import { AppAvatar } from '@/components/app-avatar';
-import './app-upload-avatar.css';
+import Avatar from '@/components/Base/Avatar';
+import { UploadAvatarProps } from '../types';
+import './UploadAvatar.css';
 
-interface UploadAvatarProps {
-  avatar: EmptyValue<string>;
-  uploadAvatar: (url: EmptyValue<string>) => void;
-}
-
-export const AppUploadAvatar: React.FC<UploadAvatarProps> = ({
+const UploadAvatar: React.FC<UploadAvatarProps> = ({
   avatar,
   uploadAvatar,
 }) => {
@@ -34,7 +29,7 @@ export const AppUploadAvatar: React.FC<UploadAvatarProps> = ({
 
   return (
     <div className="app-upload-avatar" onClick={handleClickAvatar}>
-      <AppAvatar src={imageURL} />
+      <Avatar src={imageURL} />
       <input
         type="file"
         accept="image/*"
@@ -45,3 +40,6 @@ export const AppUploadAvatar: React.FC<UploadAvatarProps> = ({
     </div>
   );
 };
+
+export default UploadAvatar
+

@@ -3,8 +3,7 @@
   width: 114px;
   height: 114px;
   border-radius: 50%;
-  border: 2px solid hsl(var(--p));
-  background-color: hsl(var(--p));
+  border: 2px solid hsl(var(--bc));
   display: flex;
   justify-content: center;
   align-items: center;

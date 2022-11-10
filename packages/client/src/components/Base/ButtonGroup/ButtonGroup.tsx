@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
-import './app-button-group.css';
+import { ButtonGroupProps } from '../types';
+import './ButtonGroup.css';
 
-interface ButtonGroupProps {
-  buttons: string[];
-  buttonClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-}
-
-export const AppButtonGroup: React.FC<ButtonGroupProps> = ({buttons, buttonClick}) => {
+const ButtonGroup: React.FC<ButtonGroupProps> = ({buttons, buttonClick}) => {
   const [clickedId, setClickedId] = useState(0);
 
   const handleClick = (
@@ -18,13 +14,13 @@ export const AppButtonGroup: React.FC<ButtonGroupProps> = ({buttons, buttonClick
   };
 
   return (
-    <div className="btn-group">
+    <div className="tabs tabs-boxed">
       {buttons.map((buttonLabel: string, i) => (
         <button
           key={i}
           name={buttonLabel}
           onClick={(event) => handleClick(event, i)}
-          className={i === clickedId ? 'btn-primary btn' : 'btn'}
+          className={i === clickedId ? 'tab tab-active' : 'tab'}
         >
           {buttonLabel}
         </button>
@@ -32,3 +28,6 @@ export const AppButtonGroup: React.FC<ButtonGroupProps> = ({buttons, buttonClick
     </div>
   );
 };
+
+export default ButtonGroup
+

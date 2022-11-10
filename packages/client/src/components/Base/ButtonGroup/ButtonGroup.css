@@ -1,9 +1,13 @@
+.tabs {
+  width: max-content
+}
+
 @media (max-width: 575px) {
-  .btn-group {
+  .tabs {
     width: 100%
   }
 
-  .btn-group .btn {
+  .tabs .tab {
     width: 50%
   }
 }
