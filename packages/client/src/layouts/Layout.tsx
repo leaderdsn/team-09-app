@@ -1,5 +1,5 @@
-import { TopHeader } from '../components/Header/TopHeader'
-import { Footer } from '../components/Footer/Footer'
+import { TopHeader } from '@/components/Header/TopHeader'
+import { Footer } from '@/components/Footer/Footer'
 import { LayoutInterface } from './types';
 
 const Layout = ({children}: LayoutInterface) => {
