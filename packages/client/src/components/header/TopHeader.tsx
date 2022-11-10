@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { themeChange } from 'theme-change';
-import DarkLightMode from '../UI/DarkLightMode';
+import DarkLightMode from '@/components/UI/DarkLightMode';
 
-export const TopHeader: React.FC = () => {
+export const TopHeader:React.FC = () => {
   useEffect(() => {
     themeChange(false);
   }, []);
