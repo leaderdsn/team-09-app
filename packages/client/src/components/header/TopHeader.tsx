@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom'
 import DarkLightMode from '@/components/UI/DarkLightMode'
 import { themeChange } from 'theme-change'
 
-export const TopHeader = () => {
+export const TopHeader: React.FC = () => {
   
   useEffect(() => {
     themeChange(false);
