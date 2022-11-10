@@ -1,14 +1,10 @@
-import { Question } from '@/components/Forum/interfaces/interfaces';
+import { IPropsQuestionItem } from '@/components/Forum/types';
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import { useMemo } from 'react';
 import { formatDistance, fromUnixTime } from 'date-fns';
 import ru from 'date-fns/locale/ru';
-interface IProps {
-  item: Question;
-  chooseTopic: (id: number) => void;
-}
 
-export const QuestionsItem = ({ item, chooseTopic }: IProps) => {
+export const QuestionsItem = ({ item, chooseTopic }: IPropsQuestionItem) => {
   const clickHandler = () => {
     chooseTopic(item.id);
   };

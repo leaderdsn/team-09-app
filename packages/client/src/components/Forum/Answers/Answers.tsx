@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { AnswersItem } from '@/components/Forum/components/Answers/AnswersItem';
-import { Answer } from "@/components/Forum/interfaces/interfaces";
-interface IProps {
-  answers: Answer[];
-}
-export const Answers = ({ answers }: IProps) => {
+import { AnswersItem } from '@/components/Forum/Answers/AnswersItem';
+import { IPropsAnswer } from "@/components/Forum/types";
+
+export const Answers = ({ answers }: IPropsAnswer) => {
   const [comment, setComment] = useState('');
   const addComment = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

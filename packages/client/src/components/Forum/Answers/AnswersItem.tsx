@@ -1,4 +1,4 @@
-import { TopicsAnswer } from '@/components/Forum/interfaces/interfaces';
+import { TopicsAnswer } from '@/components/Forum/types';
 import { MdDeleteOutline, MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import { FiEdit } from 'react-icons/fi';
 import { BsReply } from 'react-icons/bs';

@@ -1,7 +1,7 @@
 import api from '@/server/api';
 
 class Services {
-  getTasksListAction() {
+  async getTasksListAction() {
     return api
       .get('/questions')
       .then((resp) => {
@@ -11,7 +11,7 @@ class Services {
         console.log(err);
       });
   }
-  getAnswers(id: number) {
+  async getAnswers(id: number) {
     return api
       .get(`/answers/${id}`)
       .then((resp) => {
@@ -21,7 +21,7 @@ class Services {
         console.log(err);
       });
   }
-  addTopic(params: any) {
+  async addTopic(params: any) {
     return api
       .post(`/questions/`, params)
       .then((resp) => {

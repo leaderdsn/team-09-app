@@ -1,16 +1,7 @@
 import { useEffect, useState } from 'react'
+import { LeaderInfo } from './types'
 
-type LeaderInfo = {
-  data: {
-    id: number;
-    name: string;
-    avatar: string;
-    result: number;
-    aux: number;
-  }
-};
-
-export const Leaderboard = () => {
+const Leaderboard = () => {
   const [data, setData] = useState<LeaderInfo[]>([])
   const [ratingBy, setRatingBy] = useState('result')
 
@@ -81,3 +72,5 @@ export const Leaderboard = () => {
     </div>
   )
 }
+
+export default Leaderboard

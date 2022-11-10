@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Questions } from '@/components/Forum/components/Questions/Questions';
-import Services from '@/components/Forum/services/services';
-import { Answers } from '@/components/Forum/components/Answers/Answers';
+import { Questions } from '@/components/Forum/Questions/Questions';
+import Services from '@/services/services';
+import { Answers } from '@/components/Forum/Answers/Answers';
 import { BiArrowBack } from 'react-icons/bi';
 
 export const Forum = () => {
