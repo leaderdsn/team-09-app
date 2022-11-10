@@ -46,3 +46,18 @@ export interface Question {
   link: string;
   title: string;
 }
+
+export interface IPropsAnswer {
+  answers: Answer[];
+}
+
+export interface IPropsQuestion {
+  questions: Question[];
+  chooseTopic: (id: number) => void;
+  updateState: () => void;
+}
+
+export interface IPropsQuestionItem {
+  item: Question;
+  chooseTopic: (id: number) => void;
+}

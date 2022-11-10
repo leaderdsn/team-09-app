@@ -1,10 +1,6 @@
-import { TopHeader } from '../header/TopHeader'
-import { Footer } from '../footer/Footer'
-import React, { ReactNode } from 'react'
-
-export interface LayoutInterface {
-  children: ReactNode
-}
+import { TopHeader } from '../Header/TopHeader'
+import { Footer } from '../Footer/Footer'
+import { LayoutInterface } from './types';
 
 export const Layout = ({children}: LayoutInterface) => {
   return(
