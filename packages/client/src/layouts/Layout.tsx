@@ -1,8 +1,8 @@
-import { TopHeader } from '../Header/TopHeader'
-import { Footer } from '../Footer/Footer'
+import { TopHeader } from '../components/Header/TopHeader'
+import { Footer } from '../components/Footer/Footer'
 import { LayoutInterface } from './types';
 
-export const Layout = ({children}: LayoutInterface) => {
+const Layout = ({children}: LayoutInterface) => {
   return(
     <div className="relative flex min-h-screen flex-col overflow-hidden sm:py-12">
       <TopHeader />
@@ -13,3 +13,5 @@ export const Layout = ({children}: LayoutInterface) => {
     </div>
   )
 };
+
+export default Layout;
