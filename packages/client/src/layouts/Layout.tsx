@@ -1,6 +1,6 @@
 
-import { Footer } from '@/components/Footer/Footer';
-import { TopHeader } from '@/components/Header/TopHeader';
+import { Footer } from '@/layouts/Footer';
+import { TopHeader } from '@/layouts/TopHeader';
 import { LayoutInterface } from '@/layouts/types';
 
 const Layout: React.FC<LayoutInterface> = ({ children }) => {
