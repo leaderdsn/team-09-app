@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { themeChange } from 'theme-change';
 
-const DarkLightMode = () => {
+const DarkLightMode:React.FC = () => {
   useEffect(() => {
     themeChange(false);
   }, []);

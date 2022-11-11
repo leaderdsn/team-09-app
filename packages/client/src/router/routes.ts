@@ -1,7 +1,9 @@
 import React from 'react';
-import Home from '../pages/Home'
-import Game from '../pages/Game'
-import { Forum } from '@/components/Forum/view/Forum'
+import Home from '@/pages/Home'
+import Game from '@/pages/Game'
+import Profile from '@/pages/Profile'
+import { Forum } from '@/pages/Forum'
+import Leaderboard from '@/pages/Leaderboard';
 
 export interface RoutesList {
   path: string,
@@ -24,5 +26,15 @@ export const routes: RoutesList[] = [
     path: "/forum",
     name: "Форум",
     Component: Forum
+  },
+  {
+    path: "/profile",
+    name: "Профиль",
+    Component: Profile
+  },
+  {
+    path: "/leaderboard",
+    name: "Профиль",
+    Component: Leaderboard
   }
 ];
