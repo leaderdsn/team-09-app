@@ -12,6 +12,8 @@
     "server": "json-server -w src/server/db.json -p 4000"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.189",
+    "@types/throttle-debounce": "^5.0.0",
     "axios": "^0.27.2",
     "daisyui": "^2.36.1",
     "dotenv": "^16.0.2",
