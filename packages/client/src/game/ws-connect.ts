@@ -1,4 +1,4 @@
-import io from 'socket.io-client'
+import { io } from 'socket.io-client'
 import { throttle } from 'throttle-debounce'
 import { processGameUpdate } from './state'
 import settings from './settings'
