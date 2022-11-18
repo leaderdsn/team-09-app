@@ -1,12 +1,10 @@
-const express = require('express');
-const { createServer  } = require("http");
-const { Server } = require("socket.io");
+import express from 'express'
+import { createServer } from 'http'
+import { Server } from 'socket.io'
+import settings from './src/config/state'
+import Game from './src/game/game'
 
 const app = express();
-
-const settings = require("./src/config/state");
-const Game = require('./src/game/game')
-
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {

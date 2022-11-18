@@ -3,6 +3,7 @@ import { updateLeaderboard } from './leaderboard'
 const RENDER_DELAY = 100
 
 type Player = {
+  [key: string]: unknown;
   id: string;
   x: number;
   y: number;
@@ -90,18 +91,19 @@ function interpolateObject(object1: Player, object2: Player | undefined, ratio: 
   if (!object2) {
     return object1
   }
-  return object2;
 
-  // const interpolated = {}
-  // Object.keys(object1).forEach(key => {
-  //   if (typeof key === 'string') {
-  //     interpolated[key] = object2[key]
-  //   } else {
-  //     interpolated[key] = object1[key] + (object2[key] - object1[key]) * ratio
-  //   }
-  // })
-  //
-  // return interpolated
+  const interpolated: Player = { ...object1 }
+  Object.entries(interpolated).forEach(([key, value]) => {
+    if (typeof value !== 'number') {
+      interpolated[key] = object2[key]
+    } else {
+      const value1 = object1[key] as number
+      const value2 = object2[key] as number
+      interpolated[key] = value1 + (value2 - value1) * ratio
+    }
+  })
+
+  return interpolated
 }
 
 function interpolateObjectArray(objects1: Player[], objects2: Player[], ratio: number) {
