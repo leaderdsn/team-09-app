@@ -12,7 +12,7 @@ export const TopHeader: React.FC = () => {
     <div className="navbar bg-base-100">
       <div className="navbar-start">
         <div className="dropdown">
-          <label tabIndex="0" className="btn-ghost btn lg:hidden">
+          <label tabIndex={0} className="btn-ghost btn lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -29,7 +29,7 @@ export const TopHeader: React.FC = () => {
             </svg>
           </label>
           <ul
-            tabIndex="0"
+            tabIndex={0}
             className="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 shadow"
           >
             {routes.map((route, key) => (
