@@ -4,7 +4,7 @@ import { initCanvasElement, startRendering, stopRendering } from '@/game/render'
 import { startCapturingInput, stopCapturingInput } from '@/game/input'
 import { initState } from '@/game/state'
 import { initLeaderboardElement, setLeaderboardHidden } from '@/game/leaderboard'
-import '@/game/css/main.scss'
+import '../game/css/main.scss'
 
 const Game = () => {
   useEffect(() => {
