@@ -1,4 +1,4 @@
-import settings from '../config/state'
+const settings = require('../config/state');
 
 // простой топорный расчет взаимодействия игрока с другими игроками, нужно будет рефакторить на логику взаимодействия с любыми объектами
 function applyCollisions(player, players) {

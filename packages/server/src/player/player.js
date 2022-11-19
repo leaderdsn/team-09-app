@@ -1,5 +1,5 @@
-import Entity from './entity'
-import settings from '../config/state'
+const Entity = require('./entity');
+const settings = require('../config/state');
 
 class Player extends Entity {
   constructor(id, username, x, y) {
