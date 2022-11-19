@@ -1,7 +1,7 @@
 const settings = require('../config/state');
 
 // простой топорный расчет взаимодействия игрока с другими игроками, нужно будет рефакторить на логику взаимодействия с любыми объектами
-function applyCollisions(player: { id?: any; distanceTo?: any; mass: any; } | undefined, players: string | any[]): any {
+function applyCollisions(player, players) {
 
   if (player === undefined) {
     return [];
@@ -33,7 +33,7 @@ function applyCollisions(player: { id?: any; distanceTo?: any; mass: any; } | un
   return destroyedPlayers
 }
 
-function averageRadius(player: { mass: any; }, otherPlayer: { mass: any; }) {
+function averageRadius(player, otherPlayer) {
   const playerRadius = settings.PLAYER_RADIUS + player.mass
   const otherPlayerRadius = settings.PLAYER_RADIUS + otherPlayer.mass
 
