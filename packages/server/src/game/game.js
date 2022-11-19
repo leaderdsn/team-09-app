@@ -1,6 +1,6 @@
-const Player = require('../player/player')
-const settings = require('../config/state')
-const applyCollisions = require('./collisions')
+const Player = require('../player/player.js');
+const settings = require('../config/state');
+const applyCollisions = require('./collisions.js');
 
 class Game {
   constructor() {

@@ -1,4 +1,4 @@
-module.exports = Object.freeze({
+const settings = Object.freeze({
   PLAYER_RADIUS: 20,
   MAP_SIZE: 3000,
   MSG_TYPES: {
@@ -9,3 +9,5 @@ module.exports = Object.freeze({
     DISCONNECT: 'disconnect'
   }
 })
+
+export default settings

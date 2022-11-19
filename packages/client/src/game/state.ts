@@ -2,7 +2,30 @@ import { updateLeaderboard } from './leaderboard'
 
 const RENDER_DELAY = 100
 
-const gameUpdates = []
+type Player = {
+  [key: string]: unknown;
+  id: string;
+  x: number;
+  y: number;
+  direction: number;
+  speed: number;
+  username: string,
+  hp: number,
+  mass: number,
+  color: string | CanvasGradient | CanvasPattern,
+}
+
+type State = {
+  t: number;
+  me: Player;
+  others: Player[];
+  leaderboard: {
+    username: string;
+    score: number;
+  }[];
+}
+
+const gameUpdates: State[] = []
 
 let gameStart = 0
 
@@ -13,7 +36,7 @@ export function initState() {
   firstServerTimestamp = 0
 }
 
-export function processGameUpdate(update) {
+export function processGameUpdate(update: State) {
   if (!firstServerTimestamp) {
     firstServerTimestamp = update.t
     gameStart = Date.now()
@@ -64,23 +87,25 @@ export function getCurrentState() {
   }
 }
 
-function interpolateObject(object1, object2, ratio) {
+function interpolateObject(object1: Player, object2: Player | undefined, ratio: number): Player {
   if (!object2) {
     return object1
   }
 
-  const interpolated = {}
-  Object.keys(object1).forEach(key => {
-    if (typeof key === 'string') {
+  const interpolated: Player = { ...object1 }
+  Object.entries(interpolated).forEach(([key, value]) => {
+    if (typeof value !== 'number') {
       interpolated[key] = object2[key]
     } else {
-      interpolated[key] = object1[key] + (object2[key] - object1[key]) * ratio
+      const value1 = object1[key] as number
+      const value2 = object2[key] as number
+      interpolated[key] = value1 + (value2 - value1) * ratio
     }
   })
 
   return interpolated
 }
 
-function interpolateObjectArray(objects1, objects2, ratio) {
+function interpolateObjectArray(objects1: Player[], objects2: Player[], ratio: number) {
   return objects1.map(o => interpolateObject(o, objects2.find(o2 => o.id === o2.id), ratio))
 }
