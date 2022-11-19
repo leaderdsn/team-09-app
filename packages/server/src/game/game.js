@@ -1,6 +1,6 @@
-import Player from '../player/player'
-import settings from '../config/state'
-import applyCollisions from './collisions'
+const Player = require('../player/player.js');
+const settings = require('../config/state');
+const applyCollisions = require('./collisions.js');
 
 class Game {
   constructor() {

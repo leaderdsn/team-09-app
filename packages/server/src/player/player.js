@@ -1,5 +1,5 @@
-import Entity from './entity'
-import settings from '../config/state'
+const Entity = require('./entity');
+const settings = require('../config/state');
 
 class Player extends Entity {
   constructor(id, username, x, y) {
@@ -18,7 +18,7 @@ class Player extends Entity {
     this.score += dt * settings.SCORE_PER_SECOND;
     this.mass += dt * settings.MASS_PER_SECOND;
 
-    let speed = this.speed - ((this.mass / 2) * 0.005);
+    const speed = this.speed - ((this.mass / 2) * 0.005);
 
     if (speed > settings.PLAYER_MIN_SPEED) {
       this.speed = speed;
@@ -35,7 +35,7 @@ class Player extends Entity {
   }
 
   addMass(otherPlayer) {
-    let calculateMass = (otherPlayer.mass * 25) / 100;
+    const calculateMass = (otherPlayer.mass * 25) / 100;
     this.mass += calculateMass;
   }
 

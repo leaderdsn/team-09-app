@@ -29,7 +29,7 @@ function setCanvasDimensions() {
   const scaleRatio = Math.max(1, 800 / window.innerWidth)
   if (!canvas) return
   canvas.width = scaleRatio * window.innerWidth
-  canvas.height = scaleRatio * window.innerHeight / 2
+  canvas.height = scaleRatio * window.innerHeight / 1.2
 }
 
 window.addEventListener('resize', debounce(40, setCanvasDimensions))

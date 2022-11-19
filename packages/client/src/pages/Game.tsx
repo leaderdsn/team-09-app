@@ -4,6 +4,7 @@ import { initCanvasElement, startRendering, stopRendering } from '@/game/render'
 import { startCapturingInput, stopCapturingInput } from '@/game/input'
 import { initState } from '@/game/state'
 import { initLeaderboardElement, setLeaderboardHidden } from '@/game/leaderboard'
+import '../game/style/main.scss'
 
 const Game = () => {
   useEffect(() => {
@@ -42,10 +43,9 @@ const Game = () => {
   return (
     <div className='game-mvp'>
       <canvas id='game-canvas'></canvas>
-      <img id='source' src='https://svgsilh.com/svg/309539.svg' width='300' height='227' />
       <div id='play-menu' className='hidden'>
-        <input type='text' id='username-input' placeholder='Username' />
-        <button id='play-button'>PLAY</button>
+        <input type='text' id='username-input' placeholder='Username' className="input input-bordered input-sm w-full max-w-xs" />
+        <button id='play-button' className="btn btn-wide w-full btn-sm max-w-xs">PLAY</button>
       </div>
 
       <div id='leaderboard' className='hidden'>

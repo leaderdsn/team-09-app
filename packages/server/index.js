@@ -1,8 +1,8 @@
-import express from 'express'
-import { createServer } from 'http'
-import { Server } from 'socket.io'
-import settings from './src/config/state'
-import Game from './src/game/game'
+const express = require('express');
+const { createServer } = require('http');
+const { Server } = require('socket.io');
+const settings = require('./src/config/state');
+const Game = require('./src/game/game.js');
 
 const app = express();
 const httpServer = createServer(app);
