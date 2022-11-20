@@ -42,9 +42,12 @@ function render() {
   const { me, others } = getCurrentState()
   if (me) {
     renderBackground()
+    // @ts-ignore
     renderBorder(me)
 
+    // @ts-ignore
     renderPlayer(me, me)
+    // @ts-ignore
     others.forEach(renderPlayer.bind(null, me))
     others.forEach(player => renderPlayer.bind(player))
   }
@@ -67,7 +70,7 @@ function renderBorder(player: Player) {
 
 function renderPlayer(me: Player, player: Player) {
   if (!canvas || !context) return
-  const { x, y, username, color, mass, radius } = player
+  const { x, y, username, color, radius } = player
 
   const canvasX = canvas.width / 2 + x - me.x
   const canvasY = canvas.height / 2 + y - me.y
