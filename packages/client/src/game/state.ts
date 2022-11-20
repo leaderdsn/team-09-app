@@ -19,6 +19,9 @@ type State = {
   t: number;
   me: Player;
   others: Player[];
+  //todo: интерфейс для eats
+  eats: Player[];
+
   leaderboard: {
     username: string;
     score: number;
@@ -82,7 +85,9 @@ export function getCurrentState() {
 
     return {
       me: interpolateObject(baseUpdate.me, next.me, ratio),
-      others: interpolateObjectArray(baseUpdate.others, next.others, ratio)
+      others: interpolateObjectArray(baseUpdate.others, next.others, ratio),
+      eats: interpolateObjectArray(baseUpdate.eats, next.eats, ratio)
+
     }
   }
 }

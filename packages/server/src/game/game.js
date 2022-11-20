@@ -6,6 +6,7 @@ class Game {
   constructor() {
     this.sockets = {};
     this.players = {};
+    this.eats = {};
     this.lastUpdateTime = Date.now();
     this.shouldSendUpdate = false;
 
@@ -68,13 +69,18 @@ class Game {
   createUpdate(player, leaderboard) {
     // p.distanceTo(player) <= settings.MAP_SIZE / 2  - это проверка на какое расстояние мы отрисовываем противников
     const otherPlayers = Object.values(this.players).filter(
-      p => p !== player && p.distanceTo(player) <= settings.MAP_SIZE / 2,
+      (p) => p !== player && p.distanceTo(player) <= settings.MAP_SIZE / 2
+    );
+
+    const eat = Object.values(this.eats).filter(
+      (p) => p !== player && p.distanceTo(player) <= settings.MAP_SIZE / 2
     );
 
     return {
       t: Date.now(),
       me: player.serializeForUpdate(),
-      others: otherPlayers.map(p => p.serializeForUpdate()),
+      others: otherPlayers.map((p) => p.serializeForUpdate()),
+      eats: eat.map((p) => p.serializeForUpdate()),
       leaderboard,
     };
   }
@@ -82,18 +88,30 @@ class Game {
   addPlayer(socket, username) {
     this.sockets[socket.id] = socket
 
-    console.log('Player join to game!', username, socket.id)
+    const x = settings.MAP_SIZE * (0.25 + Math.random() * 0.5);
+    const y = settings.MAP_SIZE * (0.25 + Math.random() * 0.5);
+    this.players[socket.id] = new Player(socket.id, username, x, y);
+  }
 
-    const x = settings.MAP_SIZE * (0.25 + Math.random() * 0.5)
-    const y = settings.MAP_SIZE * (0.25 + Math.random() * 0.5)
-    this.players[socket.id] = new Player(socket.id, username, x, y)
+  addEat() {
+    const x = settings.MAP_SIZE * (0.25 + Math.random() * 0.5);
+    const y = settings.MAP_SIZE * (0.25 + Math.random() * 0.5);
+
+    for (let i = 0; i < 10; i++) {
+      this.eats[i] = new Player(
+        `1--${Math.random()}-${i}`,
+        `eat_${i}`,
+        x - i * 15,
+        y - i * 15
+      );
+    }
   }
 
   removePlayer(socket) {
-    console.log('Player disconnected!', socket.id)
+    console.log("Player disconnected!", socket.id);
 
-    delete this.sockets[socket.id]
-    delete this.players[socket.id]
+    delete this.sockets[socket.id];
+    delete this.players[socket.id];
   }
 
   handleInput(socket, direction) {
@@ -110,4 +128,4 @@ class Game {
   }
 }
 
-module.exports = Game
+module.exports = Game;

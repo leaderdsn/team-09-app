@@ -39,7 +39,7 @@ window.addEventListener('resize', debounce(40, setCanvasDimensions))
 let animationFrameRequestId: number
 
 function render() {
-  const { me, others } = getCurrentState()
+  const { me, others, eats } = getCurrentState();
   if (me) {
     renderBackground()
     // @ts-ignore
@@ -50,6 +50,9 @@ function render() {
     // @ts-ignore
     others.forEach(renderPlayer.bind(null, me))
     others.forEach(player => renderPlayer.bind(player))
+    eats.forEach(renderEats.bind(null, me))
+    eats.forEach(eat => renderEats.bind(eat))
+
   }
 
   animationFrameRequestId = requestAnimationFrame(render)
@@ -93,6 +96,26 @@ function renderPlayer(me: Player, player: Player) {
   context.fillStyle = color
   context.font = 'italic 16pt Arial'
   context.fillText(username, canvasX - 35, canvasY - 30 - radius)
+}
+
+function renderEats(eat) {
+  if (!canvas || !context) return;
+  const { x, y, username, color, radius } = eat
+  const canvasX = canvas.width / 2 + x
+  const canvasY = canvas.height / 2 + y
+
+  context.save();
+  context.translate(canvasX, canvasY);
+
+  context.beginPath();
+  context.arc(0, 0, radius, 0, 2 * Math.PI, false)
+  context.fillStyle = color
+  context.fill()
+  context.closePath()
+  context.fillStyle = color
+  context.font = 'italic 16pt Arial'
+  context.fillText(username, canvasX - 5, canvasY - 3 - radius)
+
 }
 
 function renderMainMenu() {

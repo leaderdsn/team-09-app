@@ -32,6 +32,7 @@ const game = new Game();
 
 function joinGame(username) {
   game.addPlayer(this, username);
+  game.addEat()
 }
 
 function handleInput(direction) {
