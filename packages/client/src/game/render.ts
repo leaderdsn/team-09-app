@@ -1,8 +1,8 @@
-import { debounce } from 'throttle-debounce'
-import { getCurrentState } from './state'
-import settings from './settings'
+import { debounce } from 'throttle-debounce';
+import { getCurrentState } from './state';
+import settings from './settings';
 
-const { MAP_SIZE } = settings
+const { MAP_SIZE } = settings;
 
 type Player = {
   id: string;
@@ -10,21 +10,23 @@ type Player = {
   y: number;
   direction: number;
   speed: number;
-  username: string,
-  hp: number,
-  mass: number,
-  radius: number,
-  color: string | CanvasGradient | CanvasPattern,
-}
+  username: string;
+  hp: number;
+  mass: number;
+  radius: number;
+  color: string | CanvasGradient | CanvasPattern;
+};
 
-let canvas: HTMLCanvasElement | null = null
-let context: CanvasRenderingContext2D | null = null
+let canvas: HTMLCanvasElement | null = null;
+let context: CanvasRenderingContext2D | null = null;
+
+
 
 export function initCanvasElement() {
-  canvas = document.getElementById('game-canvas') as HTMLCanvasElement
-  context = canvas.getContext('2d')
+  canvas = document.getElementById('game-canvas') as HTMLCanvasElement;
+  context = canvas.getContext('2d');
 
-  setCanvasDimensions()
+  setCanvasDimensions();
 }
 
 function setCanvasDimensions() {
@@ -34,104 +36,128 @@ function setCanvasDimensions() {
   canvas.height = scaleRatio * window.innerHeight / 1.2
 }
 
-window.addEventListener('resize', debounce(40, setCanvasDimensions))
+window.addEventListener('resize', debounce(40, setCanvasDimensions));
 
-let animationFrameRequestId: number
+let animationFrameRequestId: number;
+
+//============================
+
+
 
 function render() {
   const { me, others, eats } = getCurrentState();
   if (me) {
-    renderBackground()
+    renderBackground();
     // @ts-ignore
-    renderBorder(me)
+    renderBorder(me);
 
     // @ts-ignore
-    renderPlayer(me, me)
+    renderPlayer(me, me);
     // @ts-ignore
-    others.forEach(renderPlayer.bind(null, me))
-    others.forEach(player => renderPlayer.bind(player))
+    others.forEach(renderPlayer.bind(null, me));
+    others.forEach((player) => renderPlayer.bind(player));
     eats.forEach(renderEats.bind(null, me))
+    console.log(`############___render---54___#######\n`, eats);
     eats.forEach(eat => renderEats.bind(eat))
+    // food.forEach((e) => {
+    //   console.log(`############___render---70___#######\n`, e);
+    //   renderEats(e.x, e.y, e.size, 'red');
+    // });
 
+    // setInterval(function(){
+    //   eats.push(new Food(Math.floor(Math.random() * 200), Math.floor(Math.random() * 200)))
+    //   // update()
+    //
+    // }, 1000)
+//============================
+
+
+
+
+    ///////////////////////////////.file
   }
 
-  animationFrameRequestId = requestAnimationFrame(render)
+  animationFrameRequestId = requestAnimationFrame(render);
 }
 
 function renderBackground() {
-  if (!canvas || !context) return
-  context.fillStyle = 'white'
-  context.fillRect(0, 0, canvas.width, canvas.height)
+  if (!canvas || !context) return;
+  context.fillStyle = 'white';
+  context.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 function renderBorder(player: Player) {
-  if (!canvas || !context) return
-  context.strokeStyle = 'black'
-  context.lineWidth = 1
-  context.strokeRect(canvas.width / 2 - player.x, canvas.height / 2 - player.y, MAP_SIZE, MAP_SIZE)
+  if (!canvas || !context) return;
+  context.strokeStyle = 'black';
+  context.lineWidth = 1;
+  context.strokeRect(canvas.width / 2 - player.x, canvas.height / 2 - player.y, MAP_SIZE, MAP_SIZE);
 }
 
 function renderPlayer(me: Player, player: Player) {
-  if (!canvas || !context) return
-  const { x, y, username, color, radius } = player
-
-  const canvasX = canvas.width / 2 + x - me.x
-  const canvasY = canvas.height / 2 + y - me.y
-
-
-  context.save()
-  context.translate(canvasX, canvasY)
-
-  context.beginPath()
-  context.arc(0, 0, radius, 0, 2 * Math.PI, false)
-  context.fillStyle = color
-  context.fill()
-  context.closePath()
-  context.lineWidth = 4
-  context.strokeStyle = '#003300'
-  context.stroke()
-
-  context.restore()
-
-  context.fillStyle = color
-  context.font = 'italic 16pt Arial'
-  context.fillText(username, canvasX - 35, canvasY - 30 - radius)
-}
-
-function renderEats(eat) {
   if (!canvas || !context) return;
-  const { x, y, username, color, radius } = eat
-  const canvasX = canvas.width / 2 + x
-  const canvasY = canvas.height / 2 + y
+  const { x, y, username, color, radius } = player;
+
+  const canvasX = canvas.width / 2 + x - me.x;
+  const canvasY = canvas.height / 2 + y - me.y;
 
   context.save();
   context.translate(canvasX, canvasY);
 
   context.beginPath();
-  context.arc(0, 0, radius, 0, 2 * Math.PI, false)
-  context.fillStyle = color
-  context.fill()
-  context.closePath()
-  context.fillStyle = color
-  context.font = 'italic 16pt Arial'
-  context.fillText(username, canvasX - 5, canvasY - 3 - radius)
+  context.arc(0, 0, radius, 0, 2 * Math.PI, false);
+  context.fillStyle = color;
+  context.fill();
+  context.closePath();
+  context.lineWidth = 4;
+  context.strokeStyle = '#003300';
+  context.stroke();
 
+  context.restore();
+
+  context.fillStyle = color;
+  context.font = 'italic 16pt Arial';
+  context.fillText(username, canvasX - 35, canvasY - 30 - radius);
+}
+
+
+
+function renderEats(eat) {
+  if (!canvas || !context) return;
+  const { x, y, username, color, radius } = eat
+  // const canvasX = canvas.width / 2
+  // const canvasY = canvas.height / 2
+  //
+  // context.save();
+  // context.translate(canvasX, canvasY);
+  //
+  // context.beginPath();
+  // context.arc(canvasX, canvasY, radius, 0, 2 * Math.PI)
+  // context.fillStyle = color
+  // context.fill()
+  // context.closePath()
+  // context.fillStyle = color
+  // context.font = 'italic 16pt Arial'
+  // context.fillText(username, canvasX - 5, canvasY - 3 - radius)
+  context.fillStyle = color;
+  context.beginPath();
+  context.arc(x, y, radius, 0, 2 * Math.PI);
+  context.fill();
 }
 
 function renderMainMenu() {
-  renderBackground()
+  renderBackground();
 
-  animationFrameRequestId = requestAnimationFrame(renderMainMenu)
+  animationFrameRequestId = requestAnimationFrame(renderMainMenu);
 }
 
-animationFrameRequestId = requestAnimationFrame(renderMainMenu)
+animationFrameRequestId = requestAnimationFrame(renderMainMenu);
 
 export function startRendering() {
-  cancelAnimationFrame(animationFrameRequestId)
-  animationFrameRequestId = requestAnimationFrame(render)
+  cancelAnimationFrame(animationFrameRequestId);
+  animationFrameRequestId = requestAnimationFrame(render);
 }
 
 export function stopRendering() {
-  cancelAnimationFrame(animationFrameRequestId)
-  animationFrameRequestId = requestAnimationFrame(renderMainMenu)
+  cancelAnimationFrame(animationFrameRequestId);
+  animationFrameRequestId = requestAnimationFrame(renderMainMenu);
 }

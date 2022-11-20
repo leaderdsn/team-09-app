@@ -1,4 +1,5 @@
 const Player = require('../player/player.js');
+const Food = require('../food/food');
 const settings = require('../config/state');
 const collisionInteractionWithPlayers = require('./collisions.js');
 
@@ -6,12 +7,13 @@ class Game {
   constructor() {
     this.sockets = {};
     this.players = {};
-    this.eats = {};
+    this.eats = [];
     this.lastUpdateTime = Date.now();
     this.shouldSendUpdate = false;
 
     // Цикл жизни/обновления приложения
     setInterval(this.update.bind(this), 1000 / 60);
+    setInterval(this.addEat.bind(this), 1000);
   }
 
   // Основная логика приложения
@@ -72,9 +74,11 @@ class Game {
       (p) => p !== player && p.distanceTo(player) <= settings.MAP_SIZE / 2
     );
 
-    const eat = Object.values(this.eats).filter(
-      (p) => p !== player && p.distanceTo(player) <= settings.MAP_SIZE / 2
-    );
+    // const eat = Object.values(this.eats).filter(
+    //   (p) => p !== player && p.distanceTo(player) <= settings.MAP_SIZE / 2
+    // );
+    const eat=this.eats
+    console.log(`############___game---87___#######\n`,this.eats);
 
     return {
       t: Date.now(),
@@ -90,21 +94,20 @@ class Game {
 
     const x = settings.MAP_SIZE * (0.25 + Math.random() * 0.5);
     const y = settings.MAP_SIZE * (0.25 + Math.random() * 0.5);
+    console.log(`############___game---103___#######\n`,this.players);
     this.players[socket.id] = new Player(socket.id, username, x, y);
+    console.log(`############___game---105___#######\n`,);
   }
 
   addEat() {
+    console.log(`############___game---109___#######\n`,this.eats);
     const x = settings.MAP_SIZE * (0.25 + Math.random() * 0.5);
     const y = settings.MAP_SIZE * (0.25 + Math.random() * 0.5);
 
-    for (let i = 0; i < 10; i++) {
-      this.eats[i] = new Player(
-        `1--${Math.random()}-${i}`,
-        `eat_${i}`,
-        x - i * 15,
-        y - i * 15
-      );
-    }
+
+      this.eats.push(new Food(x,y,600))
+
+    // }
   }
 
   removePlayer(socket) {
