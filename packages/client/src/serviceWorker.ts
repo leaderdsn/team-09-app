@@ -1,20 +1,13 @@
 /// <reference no-default-lib="true"/>
 /// <reference lib="esnext" />
 /// <reference lib="webworker" />
-const sw = self as unknown as ServiceWorkerGlobalScope & typeof globalThis;
+export const sw = self as unknown as ServiceWorkerGlobalScope & typeof globalThis;
 
 const CACHE_NAME = 'my-site-cache-v1';
 
-const URLS = [
-  '/',
-  '/profile',
-  '/leaderboard',
-  '/forum',
-  '/game',
-];
+const URLS = ['/', '/profile', '/leaderboard', '/forum', '/game'];
 
-
-sw.addEventListener('install', (event: any) => {
+sw.addEventListener('install', (event) => {
   event.waitUntil(
     caches
       .open(CACHE_NAME)
@@ -29,46 +22,47 @@ sw.addEventListener('install', (event: any) => {
   );
 });
 
-sw.addEventListener('fetch', (event: any) => {
-  if ((event.request.url.indexOf('http') === 0)){ 
+sw.addEventListener('fetch', (event: FetchEvent | any) => {
+  if (event.request.url.indexOf('http') === 0) {
     event.respondWith(
-      caches.match(event.request).then((response) => {
-        if (response) {
-          return response;
-        }
+      caches
+        .match(event.request)
+        .then((response) => {
+          if (response) {
+            return response;
+          }
 
-        const fetchRequest = event.request.clone();
+          const fetchRequest = event.request.clone();
 
-        return (
-          fetch(fetchRequest)
-            .then((response) => {
+          return fetch(fetchRequest).then((response) => {
+            const responseToCache = response.clone();
 
-              const responseToCache = response.clone();
-
-              caches.open(CACHE_NAME).then((cache) => {
-                cache.put(event.request, responseToCache);
-              });
-              return response;
-            })
-        );
-      }).catch(() => { return caches.match(`<div>offline</div>`)}),
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(event.request, responseToCache);
+            });
+            return response;
+          });
+        })
+        .catch(() => {
+          return caches.match(`<div>offline</div>`);
+        }),
     );
   }
-  
 });
 
-sw.addEventListener("activate", (event: any) => {
+sw.addEventListener('activate', (event) => {
   const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
-    caches.keys()
-      .then((keyList) =>
-        Promise.all(keyList.map((key) => {
+    caches.keys().then((keyList) =>
+      Promise.all(
+        keyList.map((key) => {
           if (!cacheWhitelist.includes(key)) {
-            console.log('Deleting cache: ' + key)
+            console.log('Deleting cache: ' + key);
             return caches.delete(key);
           }
-        }))
-      )
+        }),
+      ),
+    ),
   );
 });
 
