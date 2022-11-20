@@ -1,6 +1,6 @@
 const Player = require('../player/player.js');
 const settings = require('../config/state');
-const applyCollisions = require('./collisions.js');
+const collisionInteractionWithPlayers = require('./collisions.js');
 
 class Game {
   constructor() {
@@ -30,16 +30,24 @@ class Game {
     Object.keys(this.sockets).forEach(playerID => {
       const player = this.players[playerID];
 
-      const destroyedPlayers = applyCollisions(player, Object.values(this.players));
+      const touchEntities = collisionInteractionWithPlayers(player, Object.values(this.players));
 
-      destroyedPlayers.forEach(destroyedPlayer => {
-        player.addMass(destroyedPlayer);
-        player.addScore(destroyedPlayer);
+      touchEntities.forEach(touchEntity => {
 
-        const socket = this.sockets[destroyedPlayer.id];
+        player.addMass(dt, touchEntity);
+        touchEntity.removeMass(dt, player);
 
-        socket.emit(settings.MSG_TYPES.GAME_OVER);
-        this.removePlayer(socket);
+        if (touchEntity.mass <= settings.PLAYER_MIN_MASS) {
+
+          console.log(touchEntity);
+
+          if (touchEntity instanceof Player) {
+            const socket = this.sockets[touchEntity.id];
+            socket.emit(settings.MSG_TYPES.GAME_OVER);
+            player.addScore(touchEntity);
+            this.removePlayer(socket);
+          }
+        }
       });
     });
 

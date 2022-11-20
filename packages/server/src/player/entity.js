@@ -1,16 +1,9 @@
 class Entity {
-  constructor(id, x, y, direction, speed) {
+  constructor(id, x, y, direction) {
     this.id = id;
     this.x = x;
     this.y = y;
     this.direction = direction;
-    this.speed = speed;
-  }
-
-  // Обновление координат (перемещение) от изменения direction
-  update(dt) {
-    this.x += dt * this.speed * Math.sin(this.direction);
-    this.y -= dt * this.speed * Math.cos(this.direction);
   }
 
   // Получение дистанции до любого объекта

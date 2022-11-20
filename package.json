@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@evilmartians/lefthook": "1.1.1",
+    "@typescript-eslint/eslint-plugin": "^5.43.0",
     "lerna": "6.0.1",
     "process": "^0.11.10"
   }
