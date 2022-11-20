@@ -1,5 +1,5 @@
 const settings = Object.freeze({
-  MAP_SIZE: 3000,
+  MAP_SIZE: 300,
   MSG_TYPES: {
     JOIN_GAME: 'join_game',
     GAME_UPDATE: 'update',

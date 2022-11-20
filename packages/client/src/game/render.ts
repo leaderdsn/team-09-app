@@ -20,8 +20,6 @@ type Player = {
 let canvas: HTMLCanvasElement | null = null;
 let context: CanvasRenderingContext2D | null = null;
 
-
-
 export function initCanvasElement() {
   canvas = document.getElementById('game-canvas') as HTMLCanvasElement;
   context = canvas.getContext('2d');
@@ -30,19 +28,15 @@ export function initCanvasElement() {
 }
 
 function setCanvasDimensions() {
-  const scaleRatio = Math.max(1, 800 / window.innerWidth)
-  if (!canvas) return
-  canvas.width = scaleRatio * window.innerWidth
-  canvas.height = scaleRatio * window.innerHeight / 1.2
+  const scaleRatio = Math.max(1, 800 / window.innerWidth);
+  if (!canvas) return;
+  canvas.width = scaleRatio * window.innerWidth;
+  canvas.height = (scaleRatio * window.innerHeight) / 1.2;
 }
 
 window.addEventListener('resize', debounce(40, setCanvasDimensions));
 
 let animationFrameRequestId: number;
-
-//============================
-
-
 
 function render() {
   const { me, others, eats } = getCurrentState();
@@ -56,25 +50,8 @@ function render() {
     // @ts-ignore
     others.forEach(renderPlayer.bind(null, me));
     others.forEach((player) => renderPlayer.bind(player));
-    eats.forEach(renderEats.bind(null, me))
-    console.log(`############___render---54___#######\n`, eats);
-    eats.forEach(eat => renderEats.bind(eat))
-    // food.forEach((e) => {
-    //   console.log(`############___render---70___#######\n`, e);
-    //   renderEats(e.x, e.y, e.size, 'red');
-    // });
-
-    // setInterval(function(){
-    //   eats.push(new Food(Math.floor(Math.random() * 200), Math.floor(Math.random() * 200)))
-    //   // update()
-    //
-    // }, 1000)
-//============================
-
-
-
-
-    ///////////////////////////////.file
+    eats.forEach(renderEats.bind(null, me));
+    eats.forEach((eat) => renderEats.bind(eat));
   }
 
   animationFrameRequestId = requestAnimationFrame(render);
@@ -119,28 +96,20 @@ function renderPlayer(me: Player, player: Player) {
   context.fillText(username, canvasX - 35, canvasY - 30 - radius);
 }
 
-
-
-function renderEats(eat) {
+function renderEats(me, eat) {
   if (!canvas || !context) return;
-  const { x, y, username, color, radius } = eat
+  const { x, y, username, color, radius } = eat;
+  const canvasX = canvas.width / 2 + x - me.x;
+  const canvasY = canvas.height / 2 + y - me.y;
   // const canvasX = canvas.width / 2
   // const canvasY = canvas.height / 2
   //
-  // context.save();
-  // context.translate(canvasX, canvasY);
-  //
-  // context.beginPath();
-  // context.arc(canvasX, canvasY, radius, 0, 2 * Math.PI)
-  // context.fillStyle = color
-  // context.fill()
-  // context.closePath()
-  // context.fillStyle = color
-  // context.font = 'italic 16pt Arial'
-  // context.fillText(username, canvasX - 5, canvasY - 3 - radius)
-  context.fillStyle = color;
+  context.save();
+  context.translate(canvasX, canvasY);
+
+  context.fillStyle = 'red';
   context.beginPath();
-  context.arc(x, y, radius, 0, 2 * Math.PI);
+  context.arc(0, 0, radius, 0, 2 * Math.PI);
   context.fill();
 }
 
