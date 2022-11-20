@@ -1,43 +1,42 @@
-const settings = require('../config/state');
-
-// простой топорный расчет взаимодействия игрока с другими игроками, нужно будет рефакторить на логику взаимодействия с любыми объектами
-function applyCollisions(player, players) {
+function collisionInteractionWithPlayers(player, entities) {
 
   if (player === undefined) {
     return [];
   }
 
-  const destroyedPlayers = []
-  for (let i = 0; i < players.length; i++) {
-    const otherPlayer = players[i]
+  const touchEntities = []
+  for (let i = 0; i < entities.length; i++) {
+    const entity = entities[i]
 
-    if (otherPlayer.id === player.id) {
+    if (entity.id === player.id) {
       continue
     }
 
-    const average = averageRadius(player, otherPlayer)
+    const checkTouch = checkTouchEntity(player, entity)
 
-    if (player.distanceTo(otherPlayer) > average) {
+    if (!checkTouch) {
       continue
     }
 
-    if (player.mass === otherPlayer.mass) {
+    if (player.mass === entity.mass) {
       continue
     }
 
-    if (player.mass > otherPlayer.mass) {
-      destroyedPlayers.push(otherPlayer)
+    if (player.mass > entity.mass) {
+      touchEntities.push(entity)
     }
   }
 
-  return destroyedPlayers
+  return touchEntities
 }
 
-function averageRadius(player, otherPlayer) {
-  const playerRadius = settings.PLAYER_RADIUS + player.mass
-  const otherPlayerRadius = settings.PLAYER_RADIUS + otherPlayer.mass
+function checkTouchEntity(player, entity) {
+  let dx = player.x - entity.x;
+  let dy = player.y - entity.y;
 
-  return (playerRadius + otherPlayerRadius) / 2
+  let distance = Math.hypot(dx, dy);
+
+  return (distance <= player.radius + entity.radius);
 }
 
-module.exports = applyCollisions
+module.exports = collisionInteractionWithPlayers

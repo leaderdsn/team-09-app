@@ -13,6 +13,7 @@ type Player = {
   username: string,
   hp: number,
   mass: number,
+  radius: number,
   color: string | CanvasGradient | CanvasPattern,
 }
 
@@ -22,6 +23,7 @@ let context: CanvasRenderingContext2D | null = null
 export function initCanvasElement() {
   canvas = document.getElementById('game-canvas') as HTMLCanvasElement
   context = canvas.getContext('2d')
+
   setCanvasDimensions()
 }
 
@@ -44,6 +46,7 @@ function render() {
 
     renderPlayer(me, me)
     others.forEach(renderPlayer.bind(null, me))
+    others.forEach(player => renderPlayer.bind(player))
   }
 
   animationFrameRequestId = requestAnimationFrame(render)
@@ -64,18 +67,20 @@ function renderBorder(player: Player) {
 
 function renderPlayer(me: Player, player: Player) {
   if (!canvas || !context) return
-  const { x, y, username, color, mass } = player
+  const { x, y, username, color, mass, radius } = player
 
   const canvasX = canvas.width / 2 + x - me.x
   const canvasY = canvas.height / 2 + y - me.y
+
 
   context.save()
   context.translate(canvasX, canvasY)
 
   context.beginPath()
-  context.arc(0, 0, settings.PLAYER_RADIUS + mass, 0, 2 * Math.PI, false)
+  context.arc(0, 0, radius, 0, 2 * Math.PI, false)
   context.fillStyle = color
   context.fill()
+  context.closePath()
   context.lineWidth = 4
   context.strokeStyle = '#003300'
   context.stroke()
@@ -84,7 +89,7 @@ function renderPlayer(me: Player, player: Player) {
 
   context.fillStyle = color
   context.font = 'italic 16pt Arial'
-  context.fillText(username, canvasX - 35, canvasY - 30 - mass)
+  context.fillText(username, canvasX - 35, canvasY - 30 - radius)
 }
 
 function renderMainMenu() {
