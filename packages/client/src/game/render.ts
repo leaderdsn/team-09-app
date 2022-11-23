@@ -1,17 +1,17 @@
 import { debounce } from 'throttle-debounce'
 import { getCurrentState } from './state'
 import settings from './settings'
+import { getAsset } from './assets';
 
 const { MAP_SIZE } = settings
 
-type Player = {
+type Entity = {
   id: string;
   x: number;
   y: number;
   direction: number;
   speed: number;
   username: string,
-  hp: number,
   mass: number,
   radius: number,
   color: string | CanvasGradient | CanvasPattern,
@@ -30,7 +30,7 @@ export function initCanvasElement() {
 function setCanvasDimensions() {
   const scaleRatio = Math.max(1, 800 / window.innerWidth)
   if (!canvas) return
-  canvas.width = scaleRatio * window.innerWidth
+  canvas.width = scaleRatio * window.innerWidth / 1.3
   canvas.height = scaleRatio * window.innerHeight / 1.2
 }
 
@@ -39,38 +39,43 @@ window.addEventListener('resize', debounce(40, setCanvasDimensions))
 let animationFrameRequestId: number
 
 function render() {
-  const { me, others } = getCurrentState()
+  const { me, others, foods } = getCurrentState()
   if (me) {
-    renderBackground()
+    // @ts-ignore
+    renderBackground(me)
     // @ts-ignore
     renderBorder(me)
 
     // @ts-ignore
     renderPlayer(me, me)
     // @ts-ignore
-    others.forEach(renderPlayer.bind(null, me))
-    others.forEach(player => renderPlayer.bind(player))
+    others.forEach(renderPlayer.bind(null, me));
+    // @ts-ignore
+    foods.forEach(renderFood.bind(null, me));
   }
 
   animationFrameRequestId = requestAnimationFrame(render)
 }
 
-function renderBackground() {
+function renderBackground(player: Entity) {
   if (!canvas || !context) return
   context.fillStyle = 'white'
   context.fillRect(0, 0, canvas.width, canvas.height)
+
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  context.drawImage(getAsset('background.jpg'), canvas.width / 2 - player.x, canvas.height / 2 - player.y, MAP_SIZE, MAP_SIZE);
 }
 
-function renderBorder(player: Player) {
+function renderBorder(player: Entity) {
   if (!canvas || !context) return
   context.strokeStyle = 'black'
   context.lineWidth = 1
   context.strokeRect(canvas.width / 2 - player.x, canvas.height / 2 - player.y, MAP_SIZE, MAP_SIZE)
 }
 
-function renderPlayer(me: Player, player: Player) {
+function renderPlayer(me: Entity, player: Entity) {
   if (!canvas || !context) return
-  const { x, y, username, color, radius } = player
+  const { x, y, username, color, radius, mass } = player
 
   const canvasX = canvas.width / 2 + x - me.x
   const canvasY = canvas.height / 2 + y - me.y
@@ -84,18 +89,53 @@ function renderPlayer(me: Player, player: Player) {
   context.fillStyle = color
   context.fill()
   context.closePath()
-  context.lineWidth = 4
+  context.lineWidth = 2
   context.strokeStyle = '#003300'
   context.stroke()
 
   context.restore()
 
   context.fillStyle = color
-  context.font = 'italic 16pt Arial'
-  context.fillText(username, canvasX - 35, canvasY - 30 - radius)
+  context.font = 'italic 14pt Arial'
+
+  if (username) {
+    context.fillText(username, canvasX - 30, canvasY - 20 - radius)
+  }
+  context.fillStyle = 'white'
+  context.font = 'italic 10pt Arial'
+  context.fillText(mass.toFixed(2), canvasX - 15, canvasY - radius)
+}
+
+function renderFood(me: Entity, food: Entity) {
+  if (!canvas || !context) return
+  const { x, y, color, radius, mass } = food
+
+  const canvasX = canvas.width / 2 + x - me.x
+  const canvasY = canvas.height / 2 + y - me.y
+
+  context.save()
+  context.translate(canvasX, canvasY)
+
+  context.beginPath()
+  context.arc(0, 0, radius, 0, 2 * Math.PI, false)
+  context.fillStyle = color
+  context.fill()
+  context.closePath()
+  context.lineWidth = 1
+  context.strokeStyle = '#999999'
+  context.stroke()
+
+  context.restore()
+
+  context.fillStyle = 'white'
+  context.font = 'italic 10pt Arial'
+
+  context.fillText(mass.toFixed(2), canvasX - 15, canvasY - radius)
+
 }
 
 function renderMainMenu() {
+  // @ts-ignore
   renderBackground()
 
   animationFrameRequestId = requestAnimationFrame(renderMainMenu)

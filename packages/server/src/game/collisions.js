@@ -18,13 +18,7 @@ function collisionInteractionWithPlayers(player, entities) {
       continue
     }
 
-    if (player.mass === entity.mass) {
-      continue
-    }
-
-    if (player.mass > entity.mass) {
-      touchEntities.push(entity)
-    }
+    touchEntities.push(entity)
   }
 
   return touchEntities

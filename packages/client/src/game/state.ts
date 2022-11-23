@@ -2,7 +2,7 @@ import { updateLeaderboard } from './leaderboard'
 
 const RENDER_DELAY = 100
 
-type Player = {
+type Entity = {
   [key: string]: unknown;
   id: string;
   x: number;
@@ -17,8 +17,9 @@ type Player = {
 
 type State = {
   t: number;
-  me: Player;
-  others: Player[];
+  me: Entity;
+  others: Entity[];
+  foods: Entity[];
   leaderboard: {
     username: string;
     score: number;
@@ -82,17 +83,18 @@ export function getCurrentState() {
 
     return {
       me: interpolateObject(baseUpdate.me, next.me, ratio),
-      others: interpolateObjectArray(baseUpdate.others, next.others, ratio)
+      others: interpolateObjectArray(baseUpdate.others, next.others, ratio),
+      foods: interpolateObjectArray(baseUpdate.foods, next.foods, ratio)
     }
   }
 }
 
-function interpolateObject(object1: Player, object2: Player | undefined, ratio: number): Player {
+function interpolateObject(object1: Entity, object2: Entity | undefined, ratio: number): Entity {
   if (!object2) {
     return object1
   }
 
-  const interpolated: Player = { ...object1 }
+  const interpolated: Entity = { ...object1 }
   Object.entries(interpolated).forEach(([key, value]) => {
     if (typeof value !== 'number') {
       interpolated[key] = object2[key]
@@ -106,6 +108,6 @@ function interpolateObject(object1: Player, object2: Player | undefined, ratio: 
   return interpolated
 }
 
-function interpolateObjectArray(objects1: Player[], objects2: Player[], ratio: number) {
+function interpolateObjectArray(objects1: Entity[], objects2: Entity[], ratio: number) {
   return objects1.map(o => interpolateObject(o, objects2.find(o2 => o.id === o2.id), ratio))
 }

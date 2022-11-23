@@ -6,7 +6,8 @@ class Entity {
     this.direction = direction;
   }
 
-  // Получение дистанции до любого объекта
+  update() {}
+
   distanceTo(object) {
     const directionX = this.x - object.x;
     const directionY = this.y - object.y;
@@ -22,6 +23,7 @@ class Entity {
       id: this.id,
       x: this.x,
       y: this.y,
+      direction: this.direction,
     };
   }
 }
