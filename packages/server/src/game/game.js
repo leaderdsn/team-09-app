@@ -38,7 +38,7 @@ class Game {
       const x = settings.MAP_SIZE * (Math.random() * 0.95)
       const y = settings.MAP_SIZE * (Math.random() * 0.95)
 
-      let food = new Food(code, x, y, Math.random() * (1 - 0.25) + 0.25);
+      let food = new Food(code, x, y, Math.random() * (1 - 0.25) + 0.25)
 
       this.tempFoods.small[code] = food
       this.foods[code] = food
@@ -70,7 +70,7 @@ class Game {
       this.foods[code] = food
     }
 
-    let foodEnemyCount = 150 - Object.values(this.tempFoods.enemy).length
+    let foodEnemyCount = 100 - Object.values(this.tempFoods.enemy).length
 
     for (let i = 1; i <= foodEnemyCount; i++) {
       const code = uuidv4()
@@ -100,19 +100,6 @@ class Game {
     // обновляем состояние еды
     Object.values(this.foods).forEach(food => {
       food.update(dt)
-
-      // const touchFoods = collisionInteractionWithPlayers(food, Object.values(this.foods))
-      //
-      // touchFoods.forEach(touchFood => {
-      //   if (food.mass > touchFood.mass) {
-      //     food.addMass(dt, touchFood)
-      //     touchFood.removeMass(dt, food)
-      //   }
-      //
-      //   if (touchFood.mass <= settings.PLAYER_MIN_MASS) {
-      //     this.removeFood(touchFood)
-      //   }
-      // })
     })
 
     // просчитываем взаимодействия игроков друг с другом
@@ -137,9 +124,15 @@ class Game {
         }
       })
 
-      const touchFoods = collisionInteractionWithPlayers(player, Object.values(this.foods))
+      const foods = Object.values(this.foods).filter(
+        food => food.distanceTo(player) <= settings.MAP_SIZE / 10
+      )
+
+      const touchFoods = collisionInteractionWithPlayers(player, foods)
 
       touchFoods.forEach(touchFood => {
+          touchFood.update(dt)
+
           if (touchFood instanceof Sourness) {
             player.removeMass(dt, touchFood)
             touchFood.removeMass(dt, player)
@@ -178,7 +171,6 @@ class Game {
   }
 
   createUpdate(player, leaderboard) {
-    // p.distanceTo(entity) <= settings.MAP_SIZE / 2  - это проверка на какое расстояние мы отрисовываем противников
     const otherPlayers = Object.values(this.players).filter(
       p => p !== player && p.distanceTo(player) <= settings.MAP_SIZE / 4
     )

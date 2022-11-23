@@ -22,11 +22,12 @@ class Food extends Entity {
       return;
     }
 
-    this.mass += dt * touchEntity.mass * 25 / 35;
+    this.mass += dt * touchEntity.mass * 0.25;
   }
 
   removeMass(dt, entity) {
-    this.mass -= dt * entity.mass * 0.75
+    let average = this.mass + entity.mass / 2;
+    this.mass -= dt * average;
   }
 
   serializeForUpdate() {
