@@ -67,9 +67,9 @@ function renderBackground(player: Entity) {
   const canvasX = canvas.width / 2 - player.x
   const canvasY = canvas.height / 2 - player.y
 
-  for (let i = 0; i < Math.round(MAP_SIZE / 1000); i++) {
-    for (let j = 0; j < Math.round(MAP_SIZE / 667); j++) {
-      context.drawImage(getAsset('background.jpg'), canvasX + 1000 * i, canvasY + 667 * j, 1000, 667);
+  for (let i = 0; i < Math.round(MAP_SIZE / 50); i++) {
+    for (let j = 0; j < Math.round(MAP_SIZE / 50); j++) {
+      context.fillRect(canvasX + 50 * i, canvasY + 50 * j, 49, 49);
     }
   }
 }
@@ -77,13 +77,13 @@ function renderBackground(player: Entity) {
 function renderBackgroundFirst() {
   if (!canvas || !context) return
 
-  context.fillStyle = 'white'
+  context.fillStyle = '#2b2f34'
   context.fillRect(0, 0, canvas.width, canvas.height)
 }
 
 function renderBorder(player: Entity) {
   if (!canvas || !context) return
-  context.strokeStyle = 'black'
+  context.strokeStyle = '#000000'
   context.lineWidth = 1
   context.strokeRect(canvas.width / 2 - player.x, canvas.height / 2 - player.y, MAP_SIZE, MAP_SIZE)
 }
@@ -105,7 +105,7 @@ function renderPlayer(me: Entity, player: Entity) {
   context.fill()
   context.closePath()
   context.lineWidth = 2
-  context.strokeStyle = '#003300'
+  context.strokeStyle = '#000000'
   context.stroke()
 
   context.restore()
@@ -116,9 +116,9 @@ function renderPlayer(me: Entity, player: Entity) {
   if (username) {
     context.fillText(username, canvasX - 30, canvasY - 20 - radius)
   }
-  context.fillStyle = 'white'
+  context.fillStyle = '#fff'
   context.font = 'italic 10pt Arial'
-  context.fillText(mass.toFixed(2), canvasX - 15, canvasY - radius)
+  context.fillText(mass.toFixed(2), canvasX - 15, canvasY - 5 - radius)
 }
 
 function renderFood(me: Entity, food: Entity) {
@@ -137,15 +137,15 @@ function renderFood(me: Entity, food: Entity) {
   context.fill()
   context.closePath()
   context.lineWidth = 1
-  context.strokeStyle = '#999999'
+  context.strokeStyle = '#000000'
   context.stroke()
 
   context.restore()
 
-  context.fillStyle = 'white'
+  context.fillStyle = '#fff'
   context.font = 'italic 10pt Arial'
 
-  context.fillText(mass.toFixed(2), canvasX - 15, canvasY - radius)
+  context.fillText(mass.toFixed(2), canvasX - 15, canvasY - 5 - radius)
 
 }
 
