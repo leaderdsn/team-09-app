@@ -101,18 +101,18 @@ class Game {
     Object.values(this.foods).forEach(food => {
       food.update(dt)
 
-      const touchFoods = collisionInteractionWithPlayers(food, Object.values(this.foods))
-
-      touchFoods.forEach(touchFood => {
-        if (food.mass > touchFood.mass) {
-          food.addMass(dt, touchFood)
-          touchFood.removeMass(dt, food)
-        }
-
-        if (touchFood.mass <= settings.PLAYER_MIN_MASS) {
-          this.removeFood(touchFood)
-        }
-      })
+      // const touchFoods = collisionInteractionWithPlayers(food, Object.values(this.foods))
+      //
+      // touchFoods.forEach(touchFood => {
+      //   if (food.mass > touchFood.mass) {
+      //     food.addMass(dt, touchFood)
+      //     touchFood.removeMass(dt, food)
+      //   }
+      //
+      //   if (touchFood.mass <= settings.PLAYER_MIN_MASS) {
+      //     this.removeFood(touchFood)
+      //   }
+      // })
     })
 
     // просчитываем взаимодействия игроков друг с другом

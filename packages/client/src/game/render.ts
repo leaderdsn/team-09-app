@@ -59,11 +59,26 @@ function render() {
 
 function renderBackground(player: Entity) {
   if (!canvas || !context) return
-  context.fillStyle = 'white'
-  context.fillRect(0, 0, canvas.width, canvas.height)
+
+  renderBackgroundFirst();
 
   context.clearRect(0, 0, canvas.width, canvas.height);
-  context.drawImage(getAsset('background.jpg'), canvas.width / 2 - player.x, canvas.height / 2 - player.y, MAP_SIZE, MAP_SIZE);
+
+  const canvasX = canvas.width / 2 - player.x
+  const canvasY = canvas.height / 2 - player.y
+
+  for (let i = 0; i < Math.round(MAP_SIZE / 1000); i++) {
+    for (let j = 0; j < Math.round(MAP_SIZE / 667); j++) {
+      context.drawImage(getAsset('background.jpg'), canvasX + 1000 * i, canvasY + 667 * j, 1000, 667);
+    }
+  }
+}
+
+function renderBackgroundFirst() {
+  if (!canvas || !context) return
+
+  context.fillStyle = 'white'
+  context.fillRect(0, 0, canvas.width, canvas.height)
 }
 
 function renderBorder(player: Entity) {
@@ -135,8 +150,7 @@ function renderFood(me: Entity, food: Entity) {
 }
 
 function renderMainMenu() {
-  // @ts-ignore
-  renderBackground()
+  renderBackgroundFirst()
 
   animationFrameRequestId = requestAnimationFrame(renderMainMenu)
 }
