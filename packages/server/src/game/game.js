@@ -219,6 +219,12 @@ class Game {
     }
   }
 
+  handleSetTarget(socket, target) {
+    if (this.players[socket.id]) {
+      this.players[socket.id].setTarget(target)
+    }
+  }
+
   getLeaderboard() {
     return Object.values(this.players)
       .sort((p1, p2) => p2.score - p1.score)

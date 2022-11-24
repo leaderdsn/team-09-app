@@ -3,8 +3,13 @@ import { throttle } from 'throttle-debounce'
 import { processGameUpdate } from './state'
 import settings from './settings'
 
+type Point = {
+  x: number;
+  y: number;
+} | null
+
 const socketProtocol = (window.location.protocol.includes('https')) ? 'wss' : 'ws'
-const socket = io(`${socketProtocol}://127.0.0.1:8080`, { reconnection: false })
+const socket = io(`${socketProtocol}://localhost:8080`, { reconnection: false })
 const connectedPromise = new Promise<void>(resolve => {
   socket.on('connect', () => {
     console.log('Connected to server!')
@@ -33,4 +38,8 @@ export const play = (username: string) => {
 
 export const updateDirection = throttle(20, (direction: number) => {
   socket.emit(settings.MSG_TYPES.INPUT, direction)
+})
+
+export const updateTarget = throttle(20, (target: Point) => {
+  socket.emit(settings.MSG_TYPES.SET_TARGET, target)
 })

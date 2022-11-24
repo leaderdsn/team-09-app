@@ -23,6 +23,7 @@ io.on('connection', (socket) => {
 
   socket.on(settings.MSG_TYPES.JOIN_GAME, joinGame);
   socket.on(settings.MSG_TYPES.INPUT, handleInput);
+  socket.on(settings.MSG_TYPES.SET_TARGET, handleSetTarget);
   socket.on(settings.MSG_TYPES.DISCONNECT, onDisconnect);
 });
 
@@ -36,6 +37,10 @@ function joinGame(username) {
 
 function handleInput(direction) {
   game.handleInput(this, direction);
+}
+
+function handleSetTarget(target) {
+  game.handleSetTarget(this, target);
 }
 
 function onDisconnect() {
