@@ -62,7 +62,7 @@ const Leaderboard = () => {
         </tr>
         </thead>
         <tbody>
-        {data.map((leader) =>
+        {data && data.map((leader) =>
           <tr key={leader.id}>
             <td>{leader.place}</td>
             <td>
