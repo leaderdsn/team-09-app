@@ -1,36 +1,49 @@
 import { useEffect, useState } from 'react'
-import { LeaderInfo } from './types'
+//import { LeaderInfo } from './types'
+import Services from '@/services/services';
+
+type TLeader = {
+  id: number;
+  place: number;
+  nikname: string;
+  result: number;
+  aux: number;
+  avatar: string;
+}
 
 const Leaderboard = () => {
-  const [data, setData] = useState<LeaderInfo[]>([])
+  const [data, setData] = useState<TLeader[]>([])
   const [ratingBy, setRatingBy] = useState('result')
 
   useEffect(() => {
     const fetchServerData = async () => {
-      const url = 'https://ya-praktikum.tech/api/v2/leaderboard/19-T9'
-      const body = {
-        ratingFieldName: ratingBy,
-        cursor: 0,
-        limit: 10
-      }
+      // const url = 'https://ya-praktikum.tech/api/v2/leaderboard/19-T9'
+      // const body = {
+      //   ratingFieldName: ratingBy,
+      //   cursor: 0,
+      //   limit: 10
+      // }
 
-      const response = await fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(body),
-        credentials: 'include',
-        headers: {
-          'accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
-      })
+      // const response = await fetch(url, {
+      //   method: 'POST',
+      //   body: JSON.stringify(body),
+      //   credentials: 'include',
+      //   headers: {
+      //     'accept': 'application/json',
+      //     'Content-Type': 'application/json'
+      //   }
+      // })
 
-      const data = await response.json()
+      // const data = await response.json()
 
-      setData(data)
+      // setData(data)
+
+      const response = await Services.getLeaders();
+      setData(response);
     }
 
     fetchServerData()
-  }, [ratingBy])
+  }, [])
 
   const handleButtonClick = () => {
     console.log('Покидаем лидерборд')
@@ -49,21 +62,21 @@ const Leaderboard = () => {
         </tr>
         </thead>
         <tbody>
-        {data.map((leader, index) =>
-          <tr key={leader.data.id}>
-            <td>{index + 1}</td>
+        {data.map((leader) =>
+          <tr key={leader.id}>
+            <td>{leader.place}</td>
             <td>
               <div className='flex items-center space-x-3'>
                 <div className='avatar'>
                   <div className='mask mask-squircle w-12 h-12'>
-                    <img src={leader.data.avatar} alt='Avatar' />
+                    <img src={leader.avatar} alt='Avatar' />
                   </div>
                 </div>
-                <div className='font-bold'>{leader.data.name}</div>
+                <div className='font-bold'>{leader.nikname}</div>
               </div>
             </td>
-            <td>{leader.data.result}</td>
-            <td>{leader.data.aux}</td>
+            <td>{leader.result}</td>
+            <td>{leader.aux}</td>
           </tr>
         )}
         </tbody>
