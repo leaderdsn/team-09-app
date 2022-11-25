@@ -1002,5 +1002,47 @@
       "score": 55,
       "text": "dsc"
     }
+  ],
+  "leaders": [
+    {
+      "id": 1,
+      "place": 1,
+      "nikname": "perania",
+      "result": 4878,
+      "aux": 1,
+      "avatar": "https://avatars.mds.yandex.net/i?id=260129ceb0b3ed9886d06e42cf12e7b3f3dbc6f8-4589829-images-thumbs&n=13"
+    },
+    {
+      "id": 2,
+      "place": 2,
+      "nikname": "jaguar",
+      "result": 2567,
+      "aux": 1,
+      "avatar": "https://avatars.mds.yandex.net/i?id=260129ceb0b3ed9886d06e42cf12e7b3f3dbc6f8-4589829-images-thumbs&n=13"
+    },
+    {
+      "id": 3,
+      "place": 3,
+      "nikname": "frankenstein",
+      "result": 1224,
+      "aux": 1,
+      "avatar": "https://avatars.mds.yandex.net/i?id=260129ceb0b3ed9886d06e42cf12e7b3f3dbc6f8-4589829-images-thumbs&n=13"
+    },
+    {
+      "id": 4,
+      "place": 4,
+      "nikname": "enot",
+      "result": 823,
+      "aux": 1,
+      "avatar": "https://avatars.mds.yandex.net/i?id=260129ceb0b3ed9886d06e42cf12e7b3f3dbc6f8-4589829-images-thumbs&n=13"
+    },
+    {
+      "id": 5,
+      "place": 5,
+      "nikname": "dag",
+      "result": 512,
+      "aux": 1,
+      "avatar": "https://avatars.mds.yandex.net/i?id=260129ceb0b3ed9886d06e42cf12e7b3f3dbc6f8-4589829-images-thumbs&n=13"
+    }
   ]
 }

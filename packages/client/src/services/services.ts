@@ -31,6 +31,16 @@ class Services {
         console.log(err);
       });
   }
+  async getLeaders() {
+    return api
+      .get('/leaders')
+      .then((resp) => {
+        return resp.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 }
 
 export default new Services();
