@@ -1,5 +1,4 @@
 import { BrowserRouter } from 'react-router-dom';
-// import { Layout } from './components/body/Layout';
 import { store } from '@/store/store';
 import { Provider } from "react-redux";
 import { SwitchRoutes } from '@/router/SwitchRoutes';

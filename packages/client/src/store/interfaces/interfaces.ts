@@ -6,9 +6,3 @@ export interface IUserData {
   age?: number;
   count?: number;
 }
-
-export interface IServerResponse {
-  age: number;
-  name: string;
-  count: number;
-}
