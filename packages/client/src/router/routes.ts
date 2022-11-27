@@ -4,6 +4,7 @@ import Game from '@/pages/Game'
 import Profile from '@/pages/Profile'
 import { Forum } from '@/pages/Forum'
 import Leaderboard from '@/pages/Leaderboard';
+import ForTesting from "@/pages/ForTesting";
 
 export interface RoutesList {
   path: string,
@@ -34,7 +35,13 @@ export const routes: RoutesList[] = [
   },
   {
     path: "/leaderboard",
-    name: "Профиль",
+    name: "Турнирная таблица",
     Component: Leaderboard
-  }
+  },
+  {
+    path: "/test",
+    name: "Тест",
+    Component: ForTesting
+  },
+
 ];
