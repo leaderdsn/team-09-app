@@ -25,12 +25,12 @@ function collisionInteractionWithPlayers(player, entities) {
 }
 
 function checkTouchEntity(player, entity) {
-  let dx = player.x - entity.x;
-  let dy = player.y - entity.y;
+  let dx = player.transform.x - entity.transform.x;
+  let dy = player.transform.y - entity.transform.y;
 
   let distance = Math.hypot(dx, dy);
 
-  return (distance <= player.radius + entity.radius);
+  return (distance <= player.radius.value + entity.radius.value);
 }
 
 module.exports = collisionInteractionWithPlayers

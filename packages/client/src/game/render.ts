@@ -1,7 +1,6 @@
 import { debounce } from 'throttle-debounce'
 import { getCurrentState } from './state'
 import settings from './settings'
-import { getAsset } from './assets';
 
 const { MAP_SIZE } = settings
 
@@ -9,9 +8,9 @@ type Entity = {
   id: string;
   x: number;
   y: number;
-  direction: number;
+  rotation: number;
   speed: number;
-  username: string,
+  name: string,
   mass: number,
   radius: number,
   color: string | CanvasGradient | CanvasPattern,
@@ -39,19 +38,15 @@ window.addEventListener('resize', debounce(40, setCanvasDimensions))
 let animationFrameRequestId: number
 
 function render() {
-  const { me, others, foods } = getCurrentState()
-  if (me) {
-    // @ts-ignore
-    renderBackground(me)
-    // @ts-ignore
-    renderBorder(me)
+  const { player, otherPlayers, foods } = getCurrentState()
 
-    // @ts-ignore
-    renderPlayer(me, me)
-    // @ts-ignore
-    others.forEach(renderPlayer.bind(null, me));
-    // @ts-ignore
-    foods.forEach(renderFood.bind(null, me));
+  if (player) {
+    renderBackground(player);
+    renderBorder(player);
+    renderPlayer(player, player);
+
+    otherPlayers.forEach(renderPlayer.bind(null, player));
+    foods.forEach(renderFood.bind(null, player));
   }
 
   animationFrameRequestId = requestAnimationFrame(render)
@@ -88,12 +83,20 @@ function renderBorder(player: Entity) {
   context.strokeRect(canvas.width / 2 - player.x, canvas.height / 2 - player.y, MAP_SIZE, MAP_SIZE)
 }
 
-function renderPlayer(me: Entity, player: Entity) {
+function renderPlayer(current: Entity | null, player: Entity) {
   if (!canvas || !context) return
-  const { x, y, username, color, radius, mass } = player
+  const { x, y, name, color, radius, mass } = player
 
-  const canvasX = canvas.width / 2 + x - me.x
-  const canvasY = canvas.height / 2 + y - me.y
+  let currentX = 0;
+  let currentY = 0;
+
+  if (current) {
+    currentX = current.x;
+    currentY = current.y;
+  }
+
+  const canvasX = canvas.width / 2 + x - currentX
+  const canvasY = canvas.height / 2 + y - currentY
 
 
   context.save()
@@ -113,20 +116,28 @@ function renderPlayer(me: Entity, player: Entity) {
   context.fillStyle = color
   context.font = 'italic 14pt Arial'
 
-  if (username) {
-    context.fillText(username, canvasX - 30, canvasY - 20 - radius)
+  if (name) {
+    context.fillText(name, canvasX - 30, canvasY - 20 - radius)
   }
   context.fillStyle = '#fff'
   context.font = 'italic 10pt Arial'
   context.fillText(mass.toFixed(2), canvasX - 15, canvasY - 5 - radius)
 }
 
-function renderFood(me: Entity, food: Entity) {
+function renderFood(current: Entity | null, food: Entity) {
   if (!canvas || !context) return
   const { x, y, color, radius, mass } = food
 
-  const canvasX = canvas.width / 2 + x - me.x
-  const canvasY = canvas.height / 2 + y - me.y
+  let currentX = 0;
+  let currentY = 0;
+
+  if (current) {
+    currentX = current.x;
+    currentY = current.y;
+  }
+
+  const canvasX = canvas.width / 2 + x - currentX
+  const canvasY = canvas.height / 2 + y - currentY
 
   context.save()
   context.translate(canvasX, canvasY)

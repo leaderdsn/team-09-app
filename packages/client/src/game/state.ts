@@ -7,21 +7,21 @@ type Entity = {
   id: string;
   x: number;
   y: number;
-  direction: number;
-  speed: number;
-  username: string,
-  hp: number,
+  rotation: number;
+  name: string,
+  radius: number,
   mass: number,
+  speed: number;
   color: string | CanvasGradient | CanvasPattern,
 }
 
 type State = {
-  t: number;
-  me: Entity;
-  others: Entity[];
+  time: number;
+  player: Entity;
+  otherPlayers: Entity[];
   foods: Entity[];
   leaderboard: {
-    username: string;
+    name: string;
     score: number;
   }[];
 }
@@ -39,7 +39,7 @@ export function initState() {
 
 export function processGameUpdate(update: State) {
   if (!firstServerTimestamp) {
-    firstServerTimestamp = update.t
+    firstServerTimestamp = update.time
     gameStart = Date.now()
   }
   gameUpdates.push(update)
@@ -58,8 +58,9 @@ function currentServerTime() {
 
 function getBaseUpdate() {
   const serverTime = currentServerTime()
+
   for (let i = gameUpdates.length - 1; i >= 0; i--) {
-    if (gameUpdates[i].t <= serverTime) {
+    if (gameUpdates[i].time <= serverTime) {
       return i
     }
   }
@@ -79,11 +80,11 @@ export function getCurrentState() {
   } else {
     const baseUpdate = gameUpdates[base]
     const next = gameUpdates[base + 1]
-    const ratio = (serverTime - baseUpdate.t) / (next.t - baseUpdate.t)
+    const ratio = (serverTime - baseUpdate.time) / (next.time - baseUpdate.time)
 
     return {
-      me: interpolateObject(baseUpdate.me, next.me, ratio),
-      others: interpolateObjectArray(baseUpdate.others, next.others, ratio),
+      player: interpolateObject(baseUpdate.player, next.player, ratio),
+      otherPlayers: interpolateObjectArray(baseUpdate.otherPlayers, next.otherPlayers, ratio),
       foods: interpolateObjectArray(baseUpdate.foods, next.foods, ratio)
     }
   }
