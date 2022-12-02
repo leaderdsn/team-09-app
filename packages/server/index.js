@@ -2,7 +2,6 @@ const express = require('express');
 const { createServer } = require('http');
 const { Server } = require('socket.io');
 
-const StateManager = require('./src/State/StateManager');
 const Game = require('./src/Game/Game');
 
 const EventBus = require('./src/Message/EventBus');
