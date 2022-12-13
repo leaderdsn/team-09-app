@@ -29,7 +29,7 @@ class Core {
     let deltaTime = Math.abs(this.lastUpdateTime - now) / this.frameTime;
 
     if (deltaTime > 0) {
-      this.deltaTime = Math.abs(this.lastUpdateTime - now) / this.frameTime
+      this.deltaTime = deltaTime
     }
 
     this.lastUpdateTime = now
