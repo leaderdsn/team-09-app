@@ -3,6 +3,7 @@ const { createServer } = require('http');
 const { Server } = require('socket.io');
 const settings = require('./src/config/state');
 const Game = require('./src/game/game.js');
+const { User } = require('./src/postgres/models/user');
 
 const app = express();
 const httpServer = createServer(app);
@@ -20,6 +21,7 @@ app.use(express.static('public'));
 
 io.on('connection', (socket) => {
   console.log('Player connected!', socket.id);
+  User.create({ name: 'test user', theme: socket.id });
 
   socket.on(settings.MSG_TYPES.JOIN_GAME, joinGame);
   socket.on(settings.MSG_TYPES.INPUT, handleInput);
