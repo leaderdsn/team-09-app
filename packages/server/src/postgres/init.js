@@ -14,6 +14,6 @@ const sequelizeOptions = {
 
 const sequelize = new Sequelize(sequelizeOptions);
 
-sequelize.sync();
+sequelize.sync({ alter: true });
 
 module.exports = { sequelize };

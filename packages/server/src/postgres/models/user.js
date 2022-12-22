@@ -1,14 +1,14 @@
-const { DataTypes } = require('sequelize')
-const { sequelize } = require('../init')
+const { DataTypes } = require('sequelize');
+const { sequelize } = require('../init');
 
 const User = sequelize.define('User', {
   name: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
   },
   theme: {
-    type: DataTypes.STRING
-  }
-}, {})
+    type: DataTypes.STRING,
+  },
+}, {});
 
-module.exports = { User }
+module.exports = { User };
