@@ -4,8 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build:client": "vite build --outDir dist/client --config vite.config.ts && tsc --project tsconfig.sw.json",
-    "build:ssr": "vite build --ssr --outDir dist/server --config ssr.config.ts",
+    "build": "tsc && vite build --config vite.config.ts && tsc --project tsconfig.sw.json",
+    "build:ssr": "tsc && vite build --config ssr.config.ts",
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",

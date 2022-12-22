@@ -4,7 +4,7 @@
     "lib": ["ESNext", "WebWorker"],
     "noEmit": false,
     "strict": false,
-    "outDir": "./dist/client/assets",
+    "outDir": "./dist/assets",
     "target": "ESNext",
     "isolatedModules": false
   },

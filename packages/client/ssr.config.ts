@@ -7,13 +7,13 @@ export default defineConfig({
   plugins: [react()],
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'entry-server.tsx'),
-      name: 'entry-server',
+      entry: path.resolve(__dirname, 'ssr.tsx'),
+      name: 'Client',
       formats: ['cjs'],
     },
     rollupOptions: {
       output: {
-        dir: 'dist/server',
+        dir: 'ssr-dist',
       },
     },
   },
