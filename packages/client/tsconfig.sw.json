@@ -4,11 +4,11 @@
     "lib": ["ESNext", "WebWorker"],
     "noEmit": false,
     "strict": false,
-    "outDir": "./dist",
+    "outDir": "./dist/client/assets",
     "target": "ESNext",
     "isolatedModules": false
   },
   "include": [
     "./src/serviceWorker.ts"
-  ],
+  ]
 }

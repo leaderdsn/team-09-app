@@ -1,8 +1,8 @@
 import { IPropsQuestionItem } from '@/components/Forum/types';
-import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md/index.js';
 import { useMemo } from 'react';
 import { formatDistance, fromUnixTime } from 'date-fns';
-import ru from 'date-fns/locale/ru';
+import ru from 'date-fns/locale/ru/index.js';
 
 export const QuestionsItem = ({ item, chooseTopic }: IPropsQuestionItem) => {
   const clickHandler = () => {

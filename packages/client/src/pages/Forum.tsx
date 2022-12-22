@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Questions } from '@/components/Forum/Questions/Questions';
 import Services from '@/services/services';
 import { Answers } from '@/components/Forum/Answers/Answers';
-import { BiArrowBack } from 'react-icons/bi';
+import { BiArrowBack } from 'react-icons/bi/index.js';
 
 export const Forum = () => {
   const [listTopics, setListTopics] = useState([]);

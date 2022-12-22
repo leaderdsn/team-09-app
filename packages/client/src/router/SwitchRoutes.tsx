@@ -1,7 +1,6 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
-import { routes, RoutesList } from './routes'
-import Error404 from '../pages/404'
+import { Route, Routes } from 'react-router-dom';
+import { routes, RoutesList } from './routes';
+import Error404 from '../pages/404';
 
 export const SwitchRoutes = () => {
   return (
@@ -10,8 +9,8 @@ export const SwitchRoutes = () => {
         {routes.map(({ path, Component }: RoutesList) => (
           <Route key={path} path={path} element={<Component />} />
         ))}
-        <Route path='*' element={<Error404 />} />
+        <Route path="*" element={<Error404 />} />
       </Routes>
     </>
-  )
+  );
 };

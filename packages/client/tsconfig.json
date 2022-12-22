@@ -23,6 +23,6 @@
   "include": [
     "src",
     "../../node_modules/@types/node/globals.global.d.ts"
-  ],
+, "prerender.js", "prerender.js", "entry-client.tsx", "entry-server.tsx", "entry-server.tsx"  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

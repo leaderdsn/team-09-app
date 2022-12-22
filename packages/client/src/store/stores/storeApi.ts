@@ -1,10 +1,13 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { IUserData } from '@/store/interfaces/interfaces';
 
+const defaultFetchFn: typeof fetch = (...args) => fetch(...args);
+
 export const storeApi = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://api.agify.io/',
+    fetchFn: defaultFetchFn,
   }),
   endpoints: (build) => ({
     searchUsers: build.query<IUserData, string>({

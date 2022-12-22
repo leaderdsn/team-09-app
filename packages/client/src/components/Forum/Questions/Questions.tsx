@@ -1,7 +1,7 @@
 import { QuestionsItem } from '@/components/Forum/Questions/QuestionsItem';
 import { IPropsQuestion } from '@/components/Forum/types';
-import { AiOutlineEye } from 'react-icons/ai';
-import { RiQuestionAnswerLine } from 'react-icons/ri';
+import { AiOutlineEye } from 'react-icons/ai/index.js';
+import { RiQuestionAnswerLine } from 'react-icons/ri/index.js';
 import React, { useState } from 'react';
 import Services from '@/services/services';
 

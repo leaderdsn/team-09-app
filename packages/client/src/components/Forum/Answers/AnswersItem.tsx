@@ -1,10 +1,10 @@
 import { TopicsAnswer } from '@/components/Forum/types';
-import { MdDeleteOutline, MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
-import { FiEdit } from 'react-icons/fi';
-import { BsReply } from 'react-icons/bs';
+import { MdDeleteOutline, MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md/index.js';
+import { FiEdit } from 'react-icons/fi/index.js';
+import { BsReply } from 'react-icons/bs/index.js';
 import { useMemo } from 'react';
 import { formatDistance, fromUnixTime } from 'date-fns';
-import ru from 'date-fns/locale/ru';
+import ru from 'date-fns/locale/ru/index.js';
 
 export const AnswersItem = ({ answer }: TopicsAnswer) => {
   const formattedDate = useMemo(() => {
