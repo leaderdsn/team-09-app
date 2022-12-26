@@ -21,6 +21,7 @@ class Services {
         console.log(err);
       });
   }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async addTopic(params: any) {
     return api
       .post(`/questions/`, params)

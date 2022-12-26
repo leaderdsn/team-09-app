@@ -8,6 +8,7 @@ export const Forum = () => {
   const [listTopics, setListTopics] = useState([]);
   const [listAnswers, setListAnswers] = useState([]);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedTopicId, setSelectedTopicId] = useState(-1);
 
   useEffect(() => {

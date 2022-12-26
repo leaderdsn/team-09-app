@@ -4,5 +4,7 @@ node_modules/
 .idea
 .vscode
 .history
+.parcel-cache
 dist
 tmp
+yarn.lock

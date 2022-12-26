@@ -2,6 +2,7 @@
 import { Footer } from '@/layouts/Footer';
 import { TopHeader } from '@/layouts/TopHeader';
 import { LayoutInterface } from '@/layouts/types';
+import React from 'react'
 
 const Layout: React.FC<LayoutInterface> = ({ children }) => {
   return (
