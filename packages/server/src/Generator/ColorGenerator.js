@@ -1,7 +1,7 @@
-class Color {
+class ColorGenerator {
   letters = '0123456789ABCDEF'
 
-  getRandomColor() {
+  createRandomColor() {
     let color = '#'
     for (let i = 0; i < 6; i++) {
       color += this.letters[Math.floor(Math.random() * 16)]
@@ -10,4 +10,4 @@ class Color {
   }
 }
 
-module.exports = Color
+module.exports = ColorGenerator
