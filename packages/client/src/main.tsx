@@ -9,6 +9,7 @@ import startServiceWorker from './startServiceWorker';
 
 //@ts-ignore
 const store = window.__REDUX_STATE__;
+console.log(`############___main---12___#######\n`,store);
 //@ts-ignore
 delete window.__REDUX_STATE__;
 
