@@ -24,9 +24,9 @@ const Leaderboard = () => {
         }
       })
 
-      const data = await response.json()
+      const fetchData = response.ok ? await response.json() : []
 
-      setData(data)
+      setData(fetchData)
     }
 
     fetchServerData()

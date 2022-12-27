@@ -1,22 +1,14 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import AuthController from '@/controllers/AuthController'
 
 const Home = () => {
-  const handleOAuthButtonClick = async () => {
-    await AuthController.signinOAuthBegin();
+  const handleOAuthButtonClick = () => {
+    AuthController.signinOAuthBegin()
   }
 
   const handleLogoutButtonClick = () => {
-    AuthController.logout();
+    AuthController.logout()
   }
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get("code");
-    if (code) {
-      AuthController.signinOAuthEnd(code);
-    }
-  });
 
   return (
     <div className='hero min-h-screen bg-base-200'>
@@ -25,10 +17,10 @@ const Home = () => {
           <div className='card-body'>
             <form className='form-body'>
               <div className='form-control mt-6'>
-                <button className='btn btn-primary' onClick={handleOAuthButtonClick}>OAuth</button>
+                <div className='btn btn-primary' onClick={handleOAuthButtonClick}>OAuth</div>
               </div>
               <div className='form-control mt-6'>
-                <button className='btn btn-primary' onClick={handleLogoutButtonClick}>Logout</button>
+                <div className='btn btn-primary' onClick={handleLogoutButtonClick}>Logout</div>
               </div>
             </form>
           </div>

@@ -1,63 +1,69 @@
-import API, {AuthAPI, SigninData, SignupData} from '../api/AuthAPI';
+import API, { AuthAPI, SigninData, SignupData } from '../api/AuthAPI'
+
+const REDIRECT_URI = 'http://localhost:3000/oauth'
+const HOME_PAGE_URI = 'http://localhost:3000/'
 
 export class AuthController {
-  private readonly api: AuthAPI;
+  private readonly api: AuthAPI
 
   constructor() {
-    this.api = API;
+    this.api = API
   }
 
   async signin(data: SigninData) {
     try {
-      await this.api.signin(data);
+      await this.api.signin(data)
 
-      await this.fetchUser();
+      await this.fetchUser()
     } catch (e: unknown) {
-      console.error(e);
+      console.error(e)
     }
   }
 
   async signinOAuthBegin() {
     try {
-      const { service_id } = await this.api.getOAuthServiceId();
+      const { service_id } = await this.api.getOAuthServiceId()
 
-      location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${service_id}&redirect_uri=http://localhost:3000/`;
+      location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${service_id}&redirect_uri=${REDIRECT_URI}`
     } catch (e: unknown) {
-      console.error(e);
+      console.error(e)
     }
   }
 
-  async signinOAuthEnd(code: string) {
+  async signinOAuthEnd(code: string | null) {
     try {
-      await this.api.signinOAuth({code, redirect_uri: 'http://localhost:3000/'});
+      if (code) {
+        await this.api.signinOAuth({ code, redirect_uri: REDIRECT_URI })
 
-      await this.fetchUser();
+        await this.fetchUser()
+      }
     } catch (e: unknown) {
-      console.error(e);
+      console.error(e)
     }
+    location.href = HOME_PAGE_URI
   }
 
   async signup(data: SignupData) {
     try {
-      await this.api.signup(data);
+      await this.api.signup(data)
 
-      await this.fetchUser();
+      await this.fetchUser()
     } catch (e: unknown) {
-      console.error(e);
+      console.error(e)
     }
   }
 
   async fetchUser() {
-    await this.api.read();
+    await this.api.read()
   }
 
   async logout() {
     try {
-      await this.api.logout();
+      await this.api.logout()
     } catch (e: unknown) {
-      console.error(e);
+      console.error(e)
     }
   }
 }
 
-export default new AuthController();
+export default new AuthController()

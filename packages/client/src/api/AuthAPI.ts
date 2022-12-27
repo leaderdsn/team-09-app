@@ -1,4 +1,4 @@
-import HTTPTransport from '../utils/HTTPTransport';
+import HTTPTransport from '../utils/HTTPTransport'
 
 export interface SigninData {
   login: string;
@@ -36,37 +36,37 @@ export interface User extends Record<string, any> {
 }
 
 export class AuthAPI {
-  protected http: HTTPTransport;
-  protected httpOAuth: HTTPTransport;
+  protected http: HTTPTransport
+  protected httpOAuth: HTTPTransport
 
   constructor() {
-    this.http = new HTTPTransport('/auth');
-    this.httpOAuth = new HTTPTransport('/oauth');
+    this.http = new HTTPTransport('/auth')
+    this.httpOAuth = new HTTPTransport('/oauth')
   }
 
   signin(data: SigninData) {
-    return this.http.post('/signin', data);
+    return this.http.post('/signin', data)
   }
 
-  getOAuthServiceId(): Promise<GetServiceIdResponse> {
-    return this.httpOAuth.get('/yandex/service-id?redirect_uri=localhost');
+  async getOAuthServiceId(): Promise<GetServiceIdResponse> {
+    return this.httpOAuth.get('/yandex/service-id?redirect_uri=http://localhost:3000/oauth')
   }
 
   signinOAuth(data: OauthSigninData) {
-    return this.httpOAuth.post('/yandex', data);
+    return this.httpOAuth.post('/yandex', data)
   }
 
   signup(data: SignupData) {
-    return this.http.post('/signup', data);
+    return this.http.post('/signup', data)
   }
 
   read(): Promise<User> {
-    return this.http.get('/user');
+    return this.http.get('/user')
   }
 
   logout() {
-    return this.http.post('/logout');
+    return this.http.post('/logout')
   }
 }
 
-export default new AuthAPI();
+export default new AuthAPI()
