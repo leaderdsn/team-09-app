@@ -1,5 +1,5 @@
 import { useAudio } from '@/hooks/useAudio';
-import { TbHeadphones, TbHeadphonesOff } from 'react-icons/all';
+import { TbHeadphones, TbHeadphonesOff } from 'react-icons/tb';
 import { AudioPlayerProps } from '@/components/Profile/types';
 import { MouseEventHandler } from 'react';
 export const AudioPlayer = ({ url, loop }: AudioPlayerProps) => {
