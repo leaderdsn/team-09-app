@@ -21,7 +21,7 @@ export const routes: RoutesList[] = [
   },
   {
     path: "/game",
-    name: "Начать игру",
+    name: "Играть",
     Component: GameScreen
   },
   {
