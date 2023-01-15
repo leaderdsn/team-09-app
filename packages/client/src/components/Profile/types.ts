@@ -7,6 +7,6 @@ export type Inputs = {
 };
 
 export type AudioPlayerProps = {
-  url: string;
-  loop: boolean;
+  playing: boolean;
+  toggle: () => void;
 };
