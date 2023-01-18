@@ -7,7 +7,8 @@ const Leaderboard = () => {
 
   useEffect(() => {
     const fetchServerData = async () => {
-      const url = 'https://ya-praktikum.tech/api/v2/leaderboard/19-T9'
+      // const url = 'https://ya-praktikum.tech/api/v2/leaderboard/19-T9'
+      const url = 'http://localhost:8080/leaderboard/19-T9'
       const body = {
         ratingFieldName: ratingBy,
         cursor: 0,
