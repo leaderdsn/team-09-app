@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { connect, play } from '@/game/ws-connect';
+import { connect, play, reconnect } from '@/game/ws-connect';
 import { initCanvasElement, startRendering, stopRendering } from '@/game/render';
 import { startCapturingInput, stopCapturingInput } from '@/game/input';
 import { initState } from '@/game/state';
@@ -55,6 +55,7 @@ const Game = ({ playGame = false, endGameEvent }: IProps) => {
       .catch(console.error);
   }, []);
   function onGameOver() {
+    reconnect();
     stopCapturingInput();
     stopRendering();
     playMenu?.classList.remove('hidden');
