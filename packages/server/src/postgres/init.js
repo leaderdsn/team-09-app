@@ -1,10 +1,10 @@
 const { Sequelize } = require('sequelize');
 
-const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT } =
+const { POSTGRES_HOST, POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT } =
   process.env;
 
 const sequelizeOptions = {
-  host: 'localhost',
+  host: POSTGRES_HOST ?? 'postgres',
   port: parseInt(POSTGRES_PORT ?? '5432'),
   username: POSTGRES_USER ?? 'postgres',
   password: POSTGRES_PASSWORD ?? 'postgres',
