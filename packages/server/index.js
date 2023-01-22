@@ -87,9 +87,7 @@ function onDisconnect() {
   EventBus.emit(EventMessage.PLAYER.DISCONNECT, this)
 }
 
-let port = process.env.PORT || 8080;
-
-httpServer.listen(port);
+httpServer.listen(8080);
 
 const game = new Game();
 

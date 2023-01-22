@@ -1,11 +1,12 @@
 ARG NODE_VERSION=16
-
 ARG CLIENT_PORT=3000
 ARG SERVER_PORT=3001
 
 FROM node:$NODE_VERSION-buster as base
 
-WORKDIR /app
+WORKDIR /var/www/html
+
+FROM base as builder
 
 COPY ["package.json", "lerna.json", "./"]
 
@@ -15,24 +16,21 @@ COPY . .
 
 RUN yarn lerna bootstrap
 
-RUN rm -rf /app/packages/client/dist/ \
-    && rm -rf /app/packages/server/dist/
-
-RUN yarn build
+RUN rm -rf /var/www/html/packages/client/dist/ && \
+    rm -rf /var/www/html/packages/server/dist/ && \
+    yarn build --scope=client
 
 FROM nginx:latest as front
 
-WORKDIR /app
+WORKDIR /var/www/html
 
-COPY --from=base /app/packages/client/dist/ /app/
-COPY --from=base /app/packages/client/nginx.conf /etc/nginx/nginx.conf
-
-EXPOSE $CLIENT_PORT
+COPY --from=builder /var/www/html/packages/client/dist/ ./packages/client/dist/
+COPY ./docker/nginx.conf /etc/nginx/nginx.conf
 
 CMD [ "nginx", "-g", "daemon off;" ]
 
 FROM base as back
 
-EXPOSE $SERVER_PORT
+WORKDIR /var/www/html
 
-CMD [ "node", "/app/packages/server/index.js" ]
+CMD node ./packages/server/index.js

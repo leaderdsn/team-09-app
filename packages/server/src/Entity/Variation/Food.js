@@ -13,7 +13,7 @@ class Food extends Entity {
     this.type = 'food';
 
     this.radius = new RadiusEntity(25, 10)
-    this.mass = new MassEntity(0.25, 2, 0.0005, Math.floor(Math.random() * (2 - 0.25 + 1) + 0.25))
+    this.mass = new MassEntity(0.25, 0.9, 0.0005, Math.random() * (0.9 - 0.25) + 0.25)
     this.color = color
   }
 
