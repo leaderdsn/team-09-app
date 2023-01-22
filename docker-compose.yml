@@ -13,7 +13,7 @@ services:
         image: prakticum-client
         build:
             context: .
-            target: front
+            dockerfile: ./docker/Dockerfile.client
             args:
               CLIENT_PORT: ${CLIENT_PORT}
         restart: always
@@ -23,15 +23,13 @@ services:
             - "${CLIENT_PORT}:80"
         environment:
           - CLIENT_PORT=${CLIENT_PORT}
-        volumes:
-          - .:/var/www/html
 
     server:
         container_name: prakticum-server
         image: prackicum-server
         build:
             context: .
-            target: back
+            dockerfile: ./docker/Dockerfile.server
             args:
               SERVER_PORT: ${SERVER_PORT}
         restart: always
@@ -42,8 +40,6 @@ services:
         environment:
           POSTGRES_HOST: ${POSTGRES_HOST}
           SERVER_PORT: ${SERVER_PORT}
-        volumes:
-          - .:/var/www/html
 
     postgres:
       container_name: prakticum-postgres
