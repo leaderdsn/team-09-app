@@ -1,4 +1,4 @@
-import api from '@/server/api';
+import { api,apiLeaderboard } from '@/server/api';
 
 class Services {
   async getTasksListAction() {
@@ -33,9 +33,34 @@ class Services {
       });
   }
   async getLeaders() {
-    return api
-      .get('/leaders')
+    return apiLeaderboard
+      .get('/leaderboard')
       .then((resp) => {
+        console.log(`############___services---39___#######\n`,resp.data);
+        return resp.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  async getLeaders2(params: any) {
+    return apiLeaderboard
+      .post(`/leaderboard/`, params)
+      .then((resp) => {
+        console.log(`############___services---51___#######\n`,resp.data);
+        return resp.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  async login(params: any) {
+    return apiLeaderboard
+      .post(`/auth/signin/`, params)
+      .then((resp) => {
+        console.log(`############___services---51___#######\n`,resp.data);
         return resp.data;
       })
       .catch((err) => {
