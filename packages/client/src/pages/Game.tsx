@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { connect, play, reconnect } from '@/game/ws-connect';
+import { connect, play, reconnect, currentPlayer } from '@/game/ws-connect';
 import { initCanvasElement, startRendering, stopRendering } from '@/game/render';
 import { startCapturingInput, stopCapturingInput } from '@/game/input';
 import { initState } from '@/game/state';
@@ -10,6 +10,7 @@ import useFullscreenStatus from '@/hooks/fullscreen';
 import { AudioPlayer } from '@/components/ui/AudioPlayer';
 import audio from '@/assets/audio/audio.mp3';
 import { useAudio } from '@/hooks/useAudio';
+import Services from '@/services/services';
 
 interface IProps {
   playGame: boolean;
@@ -54,6 +55,23 @@ const Game = ({ playGame = false, endGameEvent }: IProps) => {
       })
       .catch(console.error);
   }, []);
+
+  const addPlayerToLeaderboard = async () => {
+    const { id, mass, name, radius,score } = currentPlayer;
+    const params = {
+      data: {
+        id: `${id}`,
+        name: `${name}`,
+        avatar: 'https://cspromogame.ru//storage/upload_images/avatars/879.jpg',
+        result: score,
+        aux: Date.now(),
+      },
+      ratingFieldName: 'result',
+      teamName: '19-T9',
+    };
+    await Services.addUserToLeaderboard(params);
+  };
+
   function onGameOver() {
     reconnect();
     stopCapturingInput();
@@ -61,6 +79,7 @@ const Game = ({ playGame = false, endGameEvent }: IProps) => {
     playMenu?.classList.remove('hidden');
     setLeaderboardHidden(true);
     endGameEvent();
+    addPlayerToLeaderboard();
   }
   const handleClick = () => {
     toggle();

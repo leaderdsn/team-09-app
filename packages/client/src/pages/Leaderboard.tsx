@@ -38,27 +38,17 @@ const Leaderboard = () => {
 
       // setData(data)
 
-      const response = await Services.getLeaders();
-      const params = {
-        data: {
-          id: 102,
-          name: 'Ran',
-          avatar: 'https://cspromogame.ru//storage/upload_images/avatars/879.jpg',
-          result: 80000,
-          aux: 295051,
-        },
-        ratingFieldName: 'result',
-        teamName: '19-T9',
+      const paramsLogin = {
+        login: 'qweqwe',
+        password: 'qwe123',
       };
-      const paramsLogin={
-        login:'qweqwe',
-        password:'qwe123'
-      }
-      const response3 = await Services.login(paramsLogin);
-      // const response2 = await Services.getLeaders2(params);
-      console.log(`############___Leaderboard---54___#######\n`, response3);
-      console.log(`############___Leaderboard---54___#######\n`, response);
-      console.log(`############___Leaderboard---55___#######\n`, response2);
+      await Services.login(paramsLogin);
+      const params = {
+        ratingFieldName: 'result',
+        cursor: 0,
+        limit: 10,
+      };
+      const response = await Services.getAllLeaderboard(params);
       setData(response);
     };
 

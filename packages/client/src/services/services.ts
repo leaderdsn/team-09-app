@@ -1,4 +1,4 @@
-import { api,apiLeaderboard } from '@/server/api';
+import { api, apiLeaderboard } from '@/server/api';
 
 class Services {
   async getTasksListAction() {
@@ -36,7 +36,6 @@ class Services {
     return apiLeaderboard
       .get('/leaderboard')
       .then((resp) => {
-        console.log(`############___services---39___#######\n`,resp.data);
         return resp.data;
       })
       .catch((err) => {
@@ -44,11 +43,32 @@ class Services {
       });
   }
 
-  async getLeaders2(params: any) {
+  async addUserToLeaderboard(params: any) {
     return apiLeaderboard
-      .post(`/leaderboard/`, params)
+      .post(`/leaderboard/`, params, { withCredentials: true })
       .then((resp) => {
-        console.log(`############___services---51___#######\n`,resp.data);
+        return resp.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  async getAllLeaderboard(params: any) {
+    return apiLeaderboard
+      .post(`/leaderboard/19-T9`, params, { withCredentials: true })
+      .then((resp) => {
+        return resp.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  async logout() {
+    return apiLeaderboard
+      .post(`/auth/logout/`, { withCredentials: true })
+      .then((resp) => {
         return resp.data;
       })
       .catch((err) => {
@@ -58,9 +78,8 @@ class Services {
 
   async login(params: any) {
     return apiLeaderboard
-      .post(`/auth/signin/`, params)
+      .post(`/auth/signin/`, params, { withCredentials: true })
       .then((resp) => {
-        console.log(`############___services---51___#######\n`,resp.data);
         return resp.data;
       })
       .catch((err) => {
