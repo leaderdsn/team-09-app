@@ -3,12 +3,14 @@ import { useEffect, useState } from 'react';
 import Services from '@/services/services';
 
 type TLeader = {
-  id: number;
-  place: number;
-  nikname: string;
-  result: number;
-  aux: number;
-  avatar: string;
+  data: {
+    id: number;
+    place: number;
+    name: string;
+    result: number;
+    aux: number;
+    avatar: string;
+  };
 };
 
 const Leaderboard = () => {
@@ -49,6 +51,7 @@ const Leaderboard = () => {
         limit: 10,
       };
       const response = await Services.getAllLeaderboard(params);
+      console.log(`############___Leaderboard---52___#######\n`, response);
       setData(response);
     };
 
@@ -59,6 +62,7 @@ const Leaderboard = () => {
     console.log('Покидаем лидерборд');
   };
 
+  // @ts-ignore
   return (
     <div className="leaderboard flex flex-col items-center">
       <h1 className="text-xl">Таблица лидеров</h1>
@@ -77,21 +81,21 @@ const Leaderboard = () => {
         </thead>
         <tbody>
           {data &&
-            data.map((leader) => (
-              <tr key={leader.id}>
-                <td>{leader.place}</td>
+            data.map((leader, index) => (
+              <tr key={leader['data']['id']}>
+                <td>{index + 1}</td>
                 <td>
                   <div className="flex items-center space-x-3">
                     <div className="avatar">
                       <div className="mask mask-squircle h-12 w-12">
-                        <img src={leader.avatar} alt="Avatar" />
+                        <img src={leader['data']['avatar']} alt="Avatar" />
                       </div>
                     </div>
-                    <div className="font-bold">{leader.nikname}</div>
+                    <div className="font-bold">{leader['data']['name']}</div>
                   </div>
                 </td>
-                <td>{leader.result}</td>
-                <td>{leader.aux}</td>
+                <td>{leader['data']['result']}</td>
+                <td>{leader['data']['aux']}</td>
               </tr>
             ))}
         </tbody>
