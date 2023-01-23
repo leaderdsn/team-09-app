@@ -51,7 +51,6 @@ const Leaderboard = () => {
         limit: 10,
       };
       const response = await Services.getAllLeaderboard(params);
-      console.log(`############___Leaderboard---52___#######\n`, response);
       setData(response);
     };
 
