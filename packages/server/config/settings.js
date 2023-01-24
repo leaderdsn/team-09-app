@@ -1,3 +1,3 @@
 module.exports = Object.freeze({
-  MAP_SIZE: 1000,
+  MAP_SIZE: 2000,
 });

@@ -45,6 +45,7 @@ class Player extends Entity {
   onTriggerEnter(entity) {
     if (this.mass.value > entity.mass.value) {
       this.addMass(entity)
+      this.addScore(entity)
       entity.removeMass(this)
     }
 
@@ -54,7 +55,7 @@ class Player extends Entity {
   }
 
   addScore(touchEntity) {
-    this.score.value += touchEntity.score.value || 1
+    this.score.value += Math.round(touchEntity.mass._value)  || 1
   }
 
   addMass(entity) {
