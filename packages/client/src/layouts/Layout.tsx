@@ -9,7 +9,7 @@ const Layout: React.FC<LayoutInterface> = ({ children }) => {
     <div className="relative flex min-h-screen flex-col overflow-hidden sm:py-12">
       <TopHeader />
       <div className="md:container md:mx-auto">{children}</div>
-      <Footer />
+      {/*<Footer />*/}
     </div>
   );
 };

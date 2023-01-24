@@ -5,6 +5,7 @@ import Profile from '@/pages/Profile'
 import { Forum } from '@/pages/Forum'
 import Leaderboard from '@/pages/Leaderboard';
 import ForTesting from "@/pages/ForTesting";
+import { GameScreen } from "@/pages/GameScreen";
 
 export interface RoutesList {
   path: string,
@@ -20,8 +21,8 @@ export const routes: RoutesList[] = [
   },
   {
     path: "/game",
-    name: "Начать игру",
-    Component: Game
+    name: "Играть",
+    Component: GameScreen
   },
   {
     path: "/forum",

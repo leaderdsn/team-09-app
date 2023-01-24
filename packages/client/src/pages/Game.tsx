@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { connect, play } from '@/game/ws-connect';
+import React, { useEffect, useRef } from 'react';
+import { connect, play, reconnect } from '@/game/ws-connect';
 import { initCanvasElement, startRendering, stopRendering } from '@/game/render';
 import { startCapturingInput, stopCapturingInput } from '@/game/input';
 import { initState } from '@/game/state';
@@ -9,8 +9,16 @@ import { BsFullscreen, BsFullscreenExit } from 'react-icons/bs';
 import useFullscreenStatus from '@/hooks/fullscreen';
 import { AudioPlayer } from '@/components/ui/AudioPlayer';
 import audio from '@/assets/audio/audio.mp3';
+import { useAudio } from '@/hooks/useAudio';
 
-const Game = () => {
+interface IProps {
+  playGame: boolean;
+  endGameEvent: () => void;
+}
+
+const Game = ({ playGame = false, endGameEvent }: IProps) => {
+  const [playing, toggle] = useAudio(audio, true) as [boolean, () => void];
+
   const canvasRef = useRef(null);
   // @ts-ignore
   let isFullscreen: boolean, setIsFullscreen;
@@ -18,7 +26,6 @@ const Game = () => {
     // @ts-ignore
     [isFullscreen, setIsFullscreen] = useFullscreenStatus(canvasRef);
   } catch (e) {
-    // errorMessage = "Fullscreen not supported";
     isFullscreen = false;
     setIsFullscreen = undefined;
   }
@@ -32,51 +39,46 @@ const Game = () => {
     }
   };
 
+  const playMenu = document.getElementById('play-menu');
+  const playButton = document.getElementById('play-button');
+  const usernameInput = document.getElementById('username-input') as HTMLInputElement;
   useEffect(() => {
-    const playMenu = document.getElementById('play-menu');
-    const playButton = document.getElementById('play-button');
-    const usernameInput = document.getElementById('username-input') as HTMLInputElement;
-
     initCanvasElement();
     initLeaderboardElement();
 
     Promise.all([connect(onGameOver)])
       .then(() => {
         playMenu?.classList.remove('hidden');
-        usernameInput.focus();
         if (!playButton) return;
-        playButton.onclick = () => {
-          play(usernameInput.value);
-          playMenu?.classList.add('hidden');
-          initState();
-          startCapturingInput();
-          startRendering();
-          setLeaderboardHidden(false);
-        };
+        handlerFullscreen();
       })
       .catch(console.error);
-
-    function onGameOver() {
-      stopCapturingInput();
-      stopRendering();
-      playMenu?.classList.remove('hidden');
-      setLeaderboardHidden(true);
-    }
   }, []);
+  function onGameOver() {
+    reconnect();
+    stopCapturingInput();
+    stopRendering();
+    playMenu?.classList.remove('hidden');
+    setLeaderboardHidden(true);
+    endGameEvent();
+  }
+  const handleClick = () => {
+    toggle();
+
+    play(usernameInput.value);
+    playMenu?.classList.add('hidden');
+    initState();
+    startCapturingInput();
+    startRendering();
+    setLeaderboardHidden(false);
+  };
+  useEffect(() => {
+    handleClick();
+  }, [playGame]);
+
   return (
-    <div className="game-mvp relative w-fit" ref={canvasRef}>
+    <div className="game-mvp relative m-auto w-fit" ref={canvasRef}>
       <canvas id="game-canvas"></canvas>
-      <div id="play-menu" className="top-1 hidden">
-        <input
-          type="text"
-          id="username-input"
-          placeholder="Username"
-          className="input-bordered input input-sm w-full max-w-xs"
-        />
-        <button id="play-button" className="btn-wide btn-sm btn w-full max-w-xs">
-          PLAY
-        </button>
-      </div>
       <div id="leaderboard" className="hidden">
         <table>
           <thead>
@@ -120,7 +122,7 @@ const Game = () => {
         <div className="fullscreen-button   cursor-pointer p-5  " onClick={handlerFullscreen}>
           {!isFullscreen ? <BsFullscreen /> : <BsFullscreenExit />}
         </div>
-        <AudioPlayer url={audio} loop={true} />
+        <AudioPlayer playing={playing} toggle={toggle} />
       </div>
     </div>
   );
