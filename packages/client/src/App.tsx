@@ -1,22 +1,23 @@
-import { useEffect } from 'react'
-import { Template } from './components/template'
+import { BrowserRouter } from 'react-router-dom';
+import { store } from '@/store/store';
+import { Provider } from "react-redux";
+import { SwitchRoutes } from '@/router/SwitchRoutes';
+import  Layout  from '@/layouts/Layout';
 
 function App() {
-  useEffect(() => {
-    const fetchServerData = async () => {
-      const url = `http://localhost:${__SERVER_PORT__}`
-      const response = await fetch(url)
-      const data = await response.json()
-      console.log(data)
-    }
-
-    fetchServerData()
-  }, [])
   return (
-    <div className="app">
-      <Template />
-    </div>
-  )
+    <>
+      <div className="container mx-auto">
+        <Provider store={store}>
+          <BrowserRouter>
+            <Layout>
+              <SwitchRoutes />
+            </Layout>
+          </BrowserRouter>
+        </Provider>
+      </div>
+    </>
+  );
 }
 
-export default App
+export default App;

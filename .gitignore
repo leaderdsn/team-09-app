@@ -1,7 +1,11 @@
 node_modules/
+.yarn/
 .env
 .idea
 .vscode
 .history
+.parcel-cache
 dist
 tmp
+yarn.lock
+.DS_Store

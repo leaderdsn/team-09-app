@@ -1,0 +1,13 @@
+.tabs {
+  width: max-content
+}
+
+@media (max-width: 575px) {
+  .tabs {
+    width: 100%
+  }
+
+  .tabs .tab {
+    width: 50%
+  }
+}
