@@ -7,3 +7,5 @@ node_modules/
 .parcel-cache
 dist
 tmp
+yarn.lock
+.DS_Store

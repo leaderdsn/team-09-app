@@ -5,3 +5,8 @@ export type Inputs = {
   newPassword: string;
   confirmPassword: string;
 };
+
+export type AudioPlayerProps = {
+  playing: boolean;
+  toggle: () => void;
+};

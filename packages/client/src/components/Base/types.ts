@@ -1,4 +1,4 @@
-import { EmptyValue } from "@/types/types";
+import { EmptyValue } from '@/types/types';
 
 export interface AvatarProps {
   src?: EmptyValue<string>;
