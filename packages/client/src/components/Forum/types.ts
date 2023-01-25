@@ -16,19 +16,23 @@ export interface Answer {
   text: string;
 }
 
-export interface Owner {
-  account_id: number;
-  reputation: number;
+export interface User {
   user_id: number;
   user_type: UserType;
   profile_image: string;
   display_name: string;
+}
+export interface Owner {
+  account_id: number;
+  reputation: number;
+  user: User,
   link: string;
   accept_rate?: number;
 }
 
 export enum UserType {
   Registered = 'registered',
+  Unregistered = 'unregistered',
 }
 
 export interface Question {
@@ -41,7 +45,7 @@ export interface Question {
   answer_count: number;
   score: number;
   last_activity_date: number;
-  creation_date: number;
+  creation_date: Date;
   last_edit_date?: number;
   link: string;
   title: string;

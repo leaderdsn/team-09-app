@@ -20,7 +20,7 @@ export const Forum = () => {
   }, []);
   const getAnswers = async (id: number) => {
     const response = await Services.getAnswers(id);
-    setListAnswers(response.answer);
+    setListAnswers(response);
   };
   const chooseTopic = (id: number) => {
     setSelectedTopicId(id);
@@ -29,6 +29,7 @@ export const Forum = () => {
 
   const updateState = async () => {
     const response = await Services.getTasksListAction();
+    console.log('updateState', response)
     setListTopics(response);
   };
 

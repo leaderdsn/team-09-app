@@ -1,7 +1,7 @@
 import { IPropsQuestionItem } from '@/components/Forum/types';
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import { useMemo } from 'react';
-import { formatDistance, fromUnixTime } from 'date-fns';
+import { formatDistance } from 'date-fns';
 import ru from 'date-fns/locale/ru';
 
 export const QuestionsItem = ({ item, chooseTopic }: IPropsQuestionItem) => {
@@ -10,7 +10,7 @@ export const QuestionsItem = ({ item, chooseTopic }: IPropsQuestionItem) => {
   };
 
   const formattedDate = useMemo(() => {
-    return formatDistance(new Date(fromUnixTime(item.creation_date)), new Date(), {
+    return formatDistance(new Date(item.creation_date), new Date(), {
       addSuffix: true,
       locale: ru,
     });
@@ -43,14 +43,14 @@ export const QuestionsItem = ({ item, chooseTopic }: IPropsQuestionItem) => {
           <div className="text-sm text-slate-500"> {formattedDate}</div>
         </div>
       </td>
-      <td className="py-3 px-6 text-center">
+      {item.owner && <td className="py-3 px-6 text-center">
         <a href={item.owner.link} target="_blank" className="flex items-center justify-center">
-          <img
+        <img
             className="h-10 w-10 transform rounded-full border border-gray-200 hover:scale-125 hover:cursor-pointer"
-            src={item.owner.profile_image}
+            src={item.owner.user.profile_image}
           />
         </a>
-      </td>
+      </td>}
       <td className="py-3 px-6 text-center">
         <div className="avatar-group -space-x-6">
           <div className="avatar hover:scale-125 hover:cursor-pointer">
@@ -77,14 +77,16 @@ export const QuestionsItem = ({ item, chooseTopic }: IPropsQuestionItem) => {
       </td>
       <td className="py-3 px-6 text-center">
         {item.is_answered ? (
-          <span className="rounded-full bg-green-200 py-1 px-3 text-xs text-green-600">open</span>
+          <span className="rounded-full bg-green-200 py-1 px-3 text-xs text-green-600">
+            close
+          </span>
         ) : (
           <span className="rounded-full bg-yellow-200 py-1 px-3 text-xs text-yellow-600">
-            close
+            open
           </span>
         )}
       </td>
-      <td className="py-3 px-6 text-center">
+      {/* <td className="py-3 px-6 text-center">
         <span className="rounded-full bg-gray-200 py-1 px-3 text-xs font-bold ">
           {item.view_count}
         </span>
@@ -93,7 +95,7 @@ export const QuestionsItem = ({ item, chooseTopic }: IPropsQuestionItem) => {
         <span className="rounded-full bg-gray-200 py-1 px-3 text-xs font-bold ">
           {item.answer_count}
         </span>
-      </td>
+      </td> */}
     </tr>
   );
 };

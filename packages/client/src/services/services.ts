@@ -3,7 +3,7 @@ import api from '@/server/api';
 class Services {
   async getTasksListAction() {
     return api
-      .get('/questions')
+      .get('/forum/questions')
       .then((resp) => {
         return resp.data;
       })
@@ -13,7 +13,7 @@ class Services {
   }
   async getAnswers(id: number) {
     return api
-      .get(`/answers/${id}`)
+      .get(`/forum/answers/${id}`)
       .then((resp) => {
         return resp.data;
       })
@@ -24,7 +24,7 @@ class Services {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async addTopic(params: any) {
     return api
-      .post(`/questions/`, params)
+      .post(`/forum/questions`, params)
       .then((resp) => {
         return resp.data;
       })

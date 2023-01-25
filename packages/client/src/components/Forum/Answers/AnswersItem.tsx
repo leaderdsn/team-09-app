@@ -8,7 +8,7 @@ import ru from 'date-fns/locale/ru';
 
 export const AnswersItem = ({ answer }: TopicsAnswer) => {
   const formattedDate = useMemo(() => {
-    return formatDistance(new Date(fromUnixTime(answer.creation_date)), new Date(), {
+    return formatDistance(new Date((answer.creation_date)), new Date(), {
       addSuffix: true,
       locale: ru,
     });
@@ -35,11 +35,13 @@ export const AnswersItem = ({ answer }: TopicsAnswer) => {
           <div className="mx-auto w-full flex-col border-b-2 border-r-2 border-gray-200  py-4 sm:rounded-lg sm:px-4 sm:py-4 sm:shadow-sm md:px-4 ">
             <div className="group/item flex flex-row">
               <div className="flex flex-col items-center">
-                <img
-                  className="h-12 w-12 rounded-full border-2 border-gray-300 object-cover"
-                  alt="Noob master's avatar"
-                  src={answer.owner.profile_image}
-                />
+                { 
+                  // answer.owner && <img
+                  //   className="h-12 w-12 rounded-full border-2 border-gray-300 object-cover"
+                  //   alt="Noob master's avatar"
+                  //   src={answer.owner.profile_image}
+                  // /> 
+                }
                 <div className="flex">
                   <button className="btn-ghost btn-xs btn gap-2">
                     <MdKeyboardArrowUp />
@@ -57,7 +59,7 @@ export const AnswersItem = ({ answer }: TopicsAnswer) => {
               <div className="mt-1 w-full flex-col">
                 <div className="flex flex-1 items-center justify-between px-4 font-bold leading-tight">
                   <div>
-                    {answer.owner.display_name}
+                    {/* {answer.owner.display_name} */}
                     <span className="ml-2 text-xs font-normal text-gray-500">{formattedDate}</span>
                   </div>
                   <div className="group/edit invisible flex justify-end space-x-2 group-hover/item:visible">

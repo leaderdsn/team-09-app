@@ -7,21 +7,16 @@ export const Answers = ({ answers }: IPropsAnswer) => {
   const addComment = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const params = {
-      id: new Date(),
       owner: {
-        account_id: 18716710,
-        reputation: 1220,
-        user_id: 14291243,
+        reputation: null,
+        user_id: null,
         user_type: 'registered',
-        profile_image: 'https://i.stack.imgur.com/GKu79.png?s=256&g=1',
+        profile_image: '/avatar',
         display_name: 'Abhishek Dutt',
-        link: 'https://stackoverflow.com/users/14291243/abhishek-dutt',
+        link: '/users/14291243/abhishek-dutt',
       },
-      creation_date: 1667546643,
-      score: 55,
       text: comment,
     };
-    console.log(params);
     setComment('');
   };
   const onChangeTextArea = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -29,7 +24,7 @@ export const Answers = ({ answers }: IPropsAnswer) => {
   };
   return (
     <div>
-      {answers?.map((answer) => (
+      {answers && answers?.map((answer) => (
         <AnswersItem key={answer.id} answer={answer} />
       ))}
       <div className="mx-auto w-full flex-col border-b-2 border-r-2 border-gray-200 sm:rounded-lg sm:px-4 sm:py-4 sm:shadow-sm">

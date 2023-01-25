@@ -10,28 +10,23 @@ export const Questions = ({ questions, chooseTopic, updateState }: IPropsQuestio
   const addTopic = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const params = {
-      id: Date.now(),
-      tags: ['swiftui'],
       owner: {
-        account_id: 2093075,
-        reputation: 9615,
-        user_id: 1862434,
-        user_type: 'registered',
-        accept_rate: 88,
-        profile_image:
-          'https://www.gravatar.com/avatar/23870fa310a75637e2d47f47571f61d8?s=256&d=identicon&r=PG&f=1',
-        display_name: 'Asim Roy',
-        link: 'https://stackoverflow.com/users/1862434/asim-roy',
+        account_id: 1,
+        reputation: 0,
+        user_id: null,
+        user_type: null,
+        accept_rate: null,
+        profile_image: null,
+        display_name: null,
+        link: null,
       },
-      is_answered: true,
-      view_count: 5938,
-      accepted_answer_id: 61345344,
-      answer_count: 3,
-      score: 9,
+      is_answered: false,
+      view_count: null,
+      accepted_answer_id: null,
+      answer_count: 0,
+      score: 0,
       last_activity_date: 1667587024,
-      creation_date: Math.floor(Date.now() / 1000),
-      last_edit_date: 1587476748,
-      link: 'https://stackoverflow.com/questions/61344676/how-to-create-a-see-through-rectangle-in-swiftui',
+      link: null,
       title: topic,
     };
     console.log(params);
@@ -80,12 +75,12 @@ export const Questions = ({ questions, chooseTopic, updateState }: IPropsQuestio
                   <th className="py-3 px-6 text-center">Автор</th>
                   <th className="py-3 px-6 text-center">Пользователи</th>
                   <th className="py-3 px-6 text-center">Статус</th>
-                  <th className="flex justify-center py-3 px-6">
+                  {/* <th className="flex justify-center py-3 px-6">
                     <AiOutlineEye size={25} />
                   </th>
                   <th className="py-3 px-6 text-center">
                     <RiQuestionAnswerLine size={20} />
-                  </th>
+                  </th> */}
                 </tr>
               </thead>
               <tbody className="text-sm font-light text-gray-600">
