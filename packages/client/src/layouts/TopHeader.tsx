@@ -49,12 +49,12 @@ export const TopHeader: React.FC = () => {
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal p-0">
+        <ul className=" flex p-0">
           {routes.map((route, key) => (
             <li className="flex list-none" key={key}>
               <NavLink
                 to={route.path}
-                className={({ isActive }) => (isActive ? 'link-primary link pr-4' : 'pr-4')}
+                className={route.path === '/game' ? ' btn-warning  btn pr-4' : 'btn-ghost btn pr-4'}
               >
                 {route.name}
               </NavLink>
@@ -66,10 +66,8 @@ export const TopHeader: React.FC = () => {
         <div className="mr-2">
           <DarkLightMode />
         </div>
-        <Link to={'/game'} className="btn">
-          Играть
-        </Link>
       </div>
     </div>
+    //
   );
 };

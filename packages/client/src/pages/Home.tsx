@@ -1,9 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
+import AuthController from '@/controllers/AuthController'
 
 const Home = () => {
+  const [login, setLogin] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleOAuthButtonClick = () => {
+    AuthController.signinOAuthBegin()
+  }
+
+  const handleSigninButtonClick = () => {
+    AuthController.signin({ login, password })
+  }
+
+  const handleLogoutButtonClick = () => {
+    AuthController.logout()
+  }
+
   return (
     <div className='hero min-h-screen bg-base-200'>
       <div className='hero-content flex-col lg:flex-row-reverse'>
+        <div className='card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100'>
+          <div className='card-body'>
+            <form className='form-body'>
+              <div className='form-control mt-6'>
+                <div className='btn btn-primary' onClick={handleOAuthButtonClick}>OAuth</div>
+              </div>
+              <div className='form-control mt-6'>
+                <div className='btn btn-primary' onClick={handleLogoutButtonClick}>Logout</div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div className='divider divider-horizontal'>ИЛИ</div>
         <div className='card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100'>
           <div className='card-body'>
             <form className='form-body'>
@@ -31,16 +60,16 @@ const Home = () => {
                 <label className='label'>
                   <span className='label-text'>Username</span>
                 </label>
-                <input type='text' placeholder='username' className='input input-bordered' />
+                <input type='text' placeholder='username' className='input input-bordered' onChange={(e) => setLogin(e.target.value)}/>
               </div>
               <div className='form-control'>
                 <label className='label'>
                   <span className='label-text'>Password</span>
                 </label>
-                <input type='text' placeholder='password' className='input input-bordered' />
+                <input type='text' placeholder='password' className='input input-bordered' onChange={(e) => setPassword(e.target.value)}/>
               </div>
               <div className='form-control mt-6'>
-                <button className='btn btn-primary'>Войти</button>
+                <div className='btn btn-primary' onClick={handleSigninButtonClick}>Войти</div>
               </div>
             </form>
           </div>

@@ -7,4 +7,12 @@ const api = axios.create({
   },
 });
 
-export default api;
+const apiLeaderboard = axios.create({
+  baseURL: 'https://ya-praktikum.tech/api/v2',
+  headers: {
+    'Content-type': 'application/json',
+    credentials: 'include',
+  },
+});
+
+export { api, apiLeaderboard };
