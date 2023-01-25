@@ -1,7 +1,7 @@
 import API, { AuthAPI, SigninData, SignupData } from '../api/AuthAPI'
 
-const REDIRECT_URI = 'http://localhost:3000/oauth'
-const HOME_PAGE_URI = 'http://localhost:3000/'
+const REDIRECT_URI = 'http://siberia-agario-19.ya-praktikum.tech:3000/oauth'
+const HOME_PAGE_URI = 'http://siberia-agario-19.ya-praktikum.tech:3000'
 
 export class AuthController {
   private readonly api: AuthAPI

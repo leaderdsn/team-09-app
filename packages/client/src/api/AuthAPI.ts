@@ -49,7 +49,7 @@ export class AuthAPI {
   }
 
   async getOAuthServiceId(): Promise<GetServiceIdResponse> {
-    return this.httpOAuth.get('/yandex/service-id?redirect_uri=http://localhost:3000/oauth')
+    return this.httpOAuth.get('/yandex/service-id?redirect_uri=http://siberia-agario-19.ya-praktikum.tech:3000/oauth')
   }
 
   signinOAuth(data: OauthSigninData) {
