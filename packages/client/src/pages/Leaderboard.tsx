@@ -40,11 +40,11 @@ const Leaderboard = () => {
 
       // setData(data)
 
-      const paramsLogin = {
-        login: 'qweqwe',
-        password: 'qwe123',
-      };
-      await Services.login(paramsLogin);
+      // const paramsLogin = {
+      //   login: 'qweqwe',
+      //   password: 'qwe123',
+      // };
+      // await Services.login(paramsLogin);
       const params = {
         ratingFieldName: 'result',
         cursor: 0,

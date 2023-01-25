@@ -1,8 +1,9 @@
-import React from 'react';
+import React from 'react'
 import Home from '@/pages/Home'
 import Game from '@/pages/Game'
 import Profile from '@/pages/Profile'
 import { Forum } from '@/pages/Forum'
+import OAuth from '@/pages/OAuth'
 import Leaderboard from '@/pages/Leaderboard';
 import ForTesting from "@/pages/ForTesting";
 import { GameScreen } from "@/pages/GameScreen";
@@ -15,8 +16,8 @@ export interface RoutesList {
 
 export const routes: RoutesList[] = [
   {
-    path: "/",
-    name: "Главная",
+    path: '/',
+    name: 'Главная',
     Component: Home
   },
   {
@@ -25,13 +26,13 @@ export const routes: RoutesList[] = [
     Component: GameScreen
   },
   {
-    path: "/forum",
-    name: "Форум",
+    path: '/forum',
+    name: 'Форум',
     Component: Forum
   },
   {
-    path: "/profile",
-    name: "Профиль",
+    path: '/profile',
+    name: 'Профиль',
     Component: Profile
   },
   {
@@ -40,9 +41,8 @@ export const routes: RoutesList[] = [
     Component: Leaderboard
   },
   {
-    path: "/test",
-    name: "Тест",
-    Component: ForTesting
+    path: '/oauth',
+    name: 'OAuth',
+    Component: OAuth
   },
-
 ];

@@ -2,6 +2,7 @@ import { io } from 'socket.io-client';
 import { throttle } from 'throttle-debounce';
 import { processGameUpdate } from './state';
 import settings from './settings';
+
 interface IPlayer {
   id: string;
   mass: number;
@@ -9,9 +10,11 @@ interface IPlayer {
   radius: number;
   score: number;
 }
+
 export let currentPlayer: IPlayer;
+
 const socketProtocol = window.location.protocol.includes('https') ? 'wss' : 'ws';
-const socket = io(`${socketProtocol}://localhost:3001`, { reconnection: false });
+const socket = io(`${socketProtocol}://siberia-agario-19.ya-praktikum.tech:3001`, { reconnection: false });
 const connectedPromise = new Promise<void>((resolve) => {
   socket.on('connect', () => {
     console.log('Connected to server!');
