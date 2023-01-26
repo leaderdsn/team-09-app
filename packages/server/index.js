@@ -3,8 +3,6 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const { createServer } = require('http');
 const { Server } = require('socket.io');
-const settings = require('./src/config/state');
-const { User } = require('./src/postgres/models/user');
 const Game = require('./src/Game/Game');
 const { authAPI } = require('./src/api/auth');
 const { leaderboardAPI } = require('./src/api/leaderboard');
@@ -13,7 +11,6 @@ const EventBus = require('./src/Message/EventBus');
 const EventMessage = require('./src/Message/EventMessage');
 const usersRouter = require('./src/routes/users');
 const forumRouter = require('./src/routes/forum');
-const cors = require("cors");
 
 const app = express();
 const httpServer = createServer(app);
@@ -22,19 +19,27 @@ const io = new Server(httpServer, {
     origin: '*',
   }
 });
-app.use(cors());
 
 
-const corsOptions ={
-  origin:'http://siberia-agario-19.ya-praktikum.tech:3000',
-  credentials:true,            //access-control-allow-credentials:true
-  optionSuccessStatus:200,
-};
+const whitelist = [
+  'http://siberia-agario-19.ya-praktikum.tech:3000', 
+  'http://localhost:8080', 
+  'http://127.0.0.1:3000'
+]
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
+}
 
 app.get('/', (req, res) => {
   res.send('<h1>Welcome to the game server</h1>');
 });
-
 
 app.use(express.static('public'));
 
