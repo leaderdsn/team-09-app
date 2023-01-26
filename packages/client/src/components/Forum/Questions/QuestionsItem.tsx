@@ -44,12 +44,12 @@ export const QuestionsItem = ({ item, chooseTopic }: IPropsQuestionItem) => {
         </div>
       </td>
       {item.owner && <td className="py-3 px-6 text-center">
-        <a href={item.owner.link} target="_blank" className="flex items-center justify-center">
+        <span className="flex items-center justify-center">
         <img
             className="h-10 w-10 transform rounded-full border border-gray-200 hover:scale-125 hover:cursor-pointer"
             src={item.owner.user.profile_image}
           />
-        </a>
+        </span>
       </td>}
       <td className="py-3 px-6 text-center">
         <div className="avatar-group -space-x-6">
@@ -86,7 +86,7 @@ export const QuestionsItem = ({ item, chooseTopic }: IPropsQuestionItem) => {
           </span>
         )}
       </td>
-      {/* <td className="py-3 px-6 text-center">
+      <td className="py-3 px-6 text-center">
         <span className="rounded-full bg-gray-200 py-1 px-3 text-xs font-bold ">
           {item.view_count}
         </span>
@@ -95,7 +95,7 @@ export const QuestionsItem = ({ item, chooseTopic }: IPropsQuestionItem) => {
         <span className="rounded-full bg-gray-200 py-1 px-3 text-xs font-bold ">
           {item.answer_count}
         </span>
-      </td> */}
+      </td>
     </tr>
   );
 };
