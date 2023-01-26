@@ -40,9 +40,4 @@ export const routes: RoutesList[] = [
     name: "Турнирная таблица",
     Component: Leaderboard
   },
-  {
-    path: '/oauth',
-    name: 'OAuth',
-    Component: OAuth
-  },
 ];
