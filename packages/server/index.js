@@ -3,14 +3,14 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const { createServer } = require('http');
 const { Server } = require('socket.io');
-// const settings = require('./src/config/state');
-const { User } = require('./src/postgres/models/user');
 const Game = require('./src/Game/Game');
 const { authAPI } = require('./src/api/auth');
 const { leaderboardAPI } = require('./src/api/leaderboard');
 const auth = require('./src/middleware/auth');
 const EventBus = require('./src/Message/EventBus');
 const EventMessage = require('./src/Message/EventMessage');
+const usersRouter = require('./src/routes/users');
+const forumRouter = require('./src/routes/forum');
 
 const app = express();
 const httpServer = createServer(app);
@@ -20,11 +20,22 @@ const io = new Server(httpServer, {
   }
 });
 
-const corsOptions ={
-  origin:'http://siberia-agario-19.ya-praktikum.tech:3000',
-  credentials:true,            //access-control-allow-credentials:true
-  optionSuccessStatus:200,
-};
+
+const whitelist = [
+  'http://siberia-agario-19.ya-praktikum.tech:3000', 
+  'http://localhost:8080', 
+  'http://localhost:3000'
+]
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
+}
 
 app.get('/', (req, res) => {
   res.send('<h1>Welcome to the game server</h1>');
@@ -45,54 +56,12 @@ app.post('/oauth/yandex', authAPI.signinOauth);
 app.post('/leaderboard/19-T9', auth, leaderboardAPI.getLeaders)
 
 
-app.post('/user', (req, res) => {
-  const user = req.body;
-  User.create(user)
-    .then(() => {
-      res.send('Ok');
-    })
-    .catch(() => {
-      res.status(500).send('database error');
-    });
-});
-
-app.get('/user', (req, res) => {
-  const where = req.body;
-  User.findAll({ where })
-    .then((users) => {
-      res.send(JSON.stringify(users));
-    })
-    .catch(() => {
-      res.status(500).send('database error');
-    });
-});
-
-app.patch('/user', (req, res) => {
-  const values = req.body.values;
-  const where = req.body.where;
-  User.update(values, { where })
-    .then(() => {
-      res.send('Ok');
-    })
-    .catch(() => {
-      res.status(500).send('database error');
-    });
-});
-
-app.delete('/user', (req, res) => {
-  const where = req.body;
-  User.destroy({ where })
-    .then(() => {
-      res.send('Ok');
-    })
-    .catch(() => {
-      res.status(500).send('database error');
-    });
-});
+/** Routers */
+app.use('/users', usersRouter)
+app.use('/forum', forumRouter)
 
 io.on('connection', (socket) => {
   console.log('Player connected!', socket.id);
-  User.create({ name: 'test user', theme: socket.id });
 
   socket.on(EventMessage.SOCKET.JOIN_GAME, onJoin);
   socket.on(EventMessage.SOCKET.INPUT, onInput);

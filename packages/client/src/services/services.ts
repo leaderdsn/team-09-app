@@ -3,7 +3,7 @@ import { api, apiLeaderboard } from '@/server/api';
 class Services {
   async getTasksListAction() {
     return api
-      .get('/questions')
+      .get('/forum/questions')
       .then((resp) => {
         return resp.data;
       })
@@ -11,9 +11,19 @@ class Services {
         console.log(err);
       });
   }
-  async getAnswers(id: number) {
+  async getAnswers(id: string) {
     return api
-      .get(`/answers/${id}`)
+      .get(`/forum/answers/${id}`)
+      .then((resp) => {
+        return resp.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  async getAnswersAll() {
+    return api
+      .get('/forum/answers')
       .then((resp) => {
         return resp.data;
       })
@@ -24,7 +34,17 @@ class Services {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async addTopic(params: any) {
     return api
-      .post(`/questions/`, params)
+      .post(`/forum/questions`, params)
+      .then((resp) => {
+        return resp.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  async addComment(params: any) {
+    return api
+      .post(`/forum/answers`, params)
       .then((resp) => {
         return resp.data;
       })

@@ -4,35 +4,39 @@ export interface Topics {
 }
 
 export interface TopicsAnswer {
-  id?: number;
-  answer: Answer;
+  id?: string;
+  answer: Answer[];
 }
 
 export interface Answer {
-  id?: number;
+  id?: string;
   owner: Owner;
-  creation_date: number;
+  creation_date: Date;
   score: number;
   text: string;
 }
 
-export interface Owner {
-  account_id: number;
-  reputation: number;
-  user_id: number;
+export interface User {
+  user_id: string;
   user_type: UserType;
   profile_image: string;
   display_name: string;
+}
+export interface Owner {
+  account_id: string;
+  reputation: number;
+  user: User,
   link: string;
   accept_rate?: number;
 }
 
 export enum UserType {
   Registered = 'registered',
+  Unregistered = 'unregistered',
 }
 
 export interface Question {
-  id: number;
+  id: string;
   tags: string[];
   owner: Owner;
   is_answered: boolean;
@@ -41,23 +45,29 @@ export interface Question {
   answer_count: number;
   score: number;
   last_activity_date: number;
-  creation_date: number;
+  creation_date: Date;
   last_edit_date?: number;
   link: string;
   title: string;
 }
 
-export interface IPropsAnswer {
+export interface IPropsAnswers {
   answers: Answer[];
+  questionId?: string
+  updateState: (id: string) => void;
+}
+
+export interface IPropsAnswer {
+  answer: Answer;
 }
 
 export interface IPropsQuestion {
   questions: Question[];
-  chooseTopic: (id: number) => void;
+  chooseTopic: (id: string) => void;
   updateState: () => void;
 }
 
 export interface IPropsQuestionItem {
   item: Question;
-  chooseTopic: (id: number) => void;
+  chooseTopic: (id: string) => void;
 }
