@@ -15,7 +15,7 @@ class AuthAPI {
   }
 
   getServiceId(req, res) {
-    request(req, res, 'GET', '/oauth/yandex/service-id?redirect_uri=http://localhost:3000/oauth')
+    request(req, res, 'GET', '/oauth/yandex/service-id?redirect_uri=http://siberia-agario-19.ya-praktikum.tech:3000/oauth')
   }
 
   signinOauth(req, res) {
