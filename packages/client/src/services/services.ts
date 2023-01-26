@@ -11,9 +11,19 @@ class Services {
         console.log(err);
       });
   }
-  async getAnswers(id: number) {
+  async getAnswers(id: string) {
     return api
       .get(`/forum/answers/${id}`)
+      .then((resp) => {
+        return resp.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  async getAnswersAll() {
+    return api
+      .get('/forum/answers')
       .then((resp) => {
         return resp.data;
       })
@@ -25,6 +35,16 @@ class Services {
   async addTopic(params: any) {
     return api
       .post(`/forum/questions`, params)
+      .then((resp) => {
+        return resp.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  async addComment(params: any) {
+    return api
+      .post(`/forum/answers`, params)
       .then((resp) => {
         return resp.data;
       })
