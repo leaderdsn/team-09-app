@@ -34,8 +34,8 @@ const Owners = sequelize.define('Owners', {
   },
 }, { tableName: "Owners" });
 
-Users.hasOne(Owners, {foreignKey: 'user_id', as: 'owners', onDelete: 'CASCADE'})
-Owners.belongsTo(Users, {foreignKey: 'user_id', as: 'users'});
+Users.hasOne(Owners, {foreignKey: 'user_id', as: 'owner', onDelete: 'CASCADE'})
+Owners.belongsTo(Users, {foreignKey: 'user_id', as: 'user'});
 
 
 module.exports = { Owners };

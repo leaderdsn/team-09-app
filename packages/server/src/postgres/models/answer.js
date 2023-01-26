@@ -35,7 +35,7 @@ Owners.hasMany(Answer, {
 
 Answer.belongsTo(Owners, {
   foreignKey:'owner_id', 
-  as:'owners'
+  as:'owner'
 })
 
 Questions.hasMany(Answer, {
@@ -50,17 +50,56 @@ Answer.belongsTo(Questions, {
 })
 
 const getAnswerOption = () => {
+  const option = {
+    attributes: [
+      'id',
+    ],
+    include: [
+      {
+        model: Answer, as: 'answer',
+        attributes: [
+          'id', 
+          'score', 
+          'text',
+          ['createdAt','creation_date'],
+        ],
+        include: {
+          model: Owners, as: 'owner',
+          attributes: [
+            ['id', 'account_id'], 
+            'reputation', 
+            'accept_rate', 
+            'link'
+          ],
+          include: { 
+            attributes: [
+              ['id', 'user_id'],
+              'profile_image', 
+              'display_name', 
+              'user_type'
+            ],
+            model: Users, as: 'user',
+          },
+        }
+      }
+    ]
+  }
+
+  return { ...option }
+};
+
+const getAnswersOption = () => {
 
   const option = {
     attributes: [
       'id', 
-      'question_id',
+      ['question_id', 'questionId'],
       'score', 
       'text',
       ['createdAt','creation_date'],
     ],
     include: {
-      model: Owners, as: 'owners',
+      model: Owners, as: 'owner',
       attributes: [
         ['id', 'account_id'], 
         'reputation', 
@@ -74,13 +113,13 @@ const getAnswerOption = () => {
           'display_name', 
           'user_type'
         ],
-        model: Users, as: 'users',
+        model: Users, as: 'user',
       },
     }
   }
 
   return { ...option }
-};
+}
 
 
-module.exports = { Answer, getAnswerOption };
+module.exports = { Answer, getAnswerOption, getAnswersOption };

@@ -22,7 +22,7 @@ const Users = sequelize.define('Users', {
   email: DataTypes.STRING,
   profile_image: {
     type: DataTypes.STRING,
-    defaultValue: '/avatar/'
+    defaultValue: 'https://xsgames.co/randomusers/avatar.php?g=male'
   },
   display_name: {
     type: DataTypes.STRING,

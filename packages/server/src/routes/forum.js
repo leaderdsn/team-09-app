@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Users } = require('../postgres/models/users');
-const { Answer, getAnswerOption } = require('../postgres/models/answer');
+const { Answer, getAnswerOption, getAnswersOption } = require('../postgres/models/answer');
 const { Questions, questionsOption } = require('../postgres/models/questions');
 const { Owners } = require('../postgres/models/owners');
 const { v4: uuidv4 } = require('uuid');
@@ -78,7 +78,7 @@ router.delete('/questions', (req, res) => {
 
 /** Answer */
 router.get('/answers', async (req, res) => {
-  await Answer.findAll(getAnswerOption())
+  await Answer.findAll(getAnswersOption())
     .then((answer) => {
       res.send(JSON.stringify(answer));
     })
@@ -89,7 +89,7 @@ router.get('/answers', async (req, res) => {
 
 router.get('/answers/:id', async (req, res) => {
   const queryParams = req.params
-  await Answer.findByPk(queryParams.id, getAnswerOption())
+  await Questions.findByPk(queryParams.id, getAnswerOption())
     .then((answer) => {
       if(!answer) return;
       res.send(JSON.stringify(answer));

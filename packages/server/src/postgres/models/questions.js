@@ -21,8 +21,14 @@ const Questions = sequelize.define('Questions', {
   },
   tags: DataTypes.ARRAY(DataTypes.STRING),
   is_answered: DataTypes.BOOLEAN,
-  view_count: DataTypes.INTEGER,
-  answer_count: DataTypes.INTEGER,
+  view_count: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0
+  },
+  answer_count: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0
+  },
   score: {
     type: DataTypes.INTEGER,
     defaultValue: 0
@@ -41,7 +47,7 @@ Owners.hasMany(Questions, {
 
 Questions.belongsTo(Owners, {
   foreignKey:'owner_id', 
-  as:'owners',
+  as:'owner',
 });
 
 
@@ -62,7 +68,7 @@ const questionsOption = () => {
       'title',
     ],
     include: {
-      model: Owners, as: 'owners',
+      model: Owners, as: 'owner',
       attributes: [
         ['id', 'account_id'], 
         'reputation', 
@@ -76,7 +82,7 @@ const questionsOption = () => {
           'display_name', 
           'user_type'
         ],
-        model: Users, as: 'users',
+        model: Users, as: 'user',
       },
     }
   }
