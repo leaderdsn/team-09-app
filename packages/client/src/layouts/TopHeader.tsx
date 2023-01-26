@@ -51,7 +51,7 @@ export const TopHeader: React.FC = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className=" flex p-0">
           {routes.map((route, key) => (
-            <li className="flex list-none" key={key}>
+            route.name !== 'OAuth' && <li className="flex list-none" key={key}>
               <NavLink
                 to={route.path}
                 className={route.path === '/game' ? ' btn-warning  btn pr-4' : 'btn-ghost btn pr-4'}
