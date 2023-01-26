@@ -24,7 +24,7 @@ const io = new Server(httpServer, {
 const whitelist = [
   'http://siberia-agario-19.ya-praktikum.tech:3000', 
   'http://localhost:8080', 
-  'http://localhost:3000'
+  'http://127.0.0.1:3000'
 ]
 
 const corsOptions = {
@@ -35,6 +35,8 @@ const corsOptions = {
       callback(new Error('Not allowed by CORS'))
     }
   },
+  credentials:true,            //access-control-allow-credentials:true
+  optionSuccessStatus:200,
 }
 
 app.get('/', (req, res) => {
